@@ -13,8 +13,9 @@ import {
   SiTypescript,
   SiMongodb,
   SiNodedotjs,
+  SiPython,
 } from "react-icons/si";
-import AnimatedTools from "../animations/AnimatedTools.tsx";
+import AnimatedTools from "../animations/AnimatedTools";
 
 const Tools = () => {
   return (
@@ -45,7 +46,6 @@ const Tools = () => {
                 <SiTypescript size={50} />
                 <SiJavascript size={50} />
                 <SiReact size={50} />
-
                 <SiNextdotjs size={50} />
               </AnimatedTools>
             </div>
@@ -59,6 +59,7 @@ const Tools = () => {
                 stepSize={0.1}
                 iconSize={50}
               >
+                <SiPython size={50} />
                 <SiPostgresql size={50} />
                 <SiMysql size={50} />
                 <SiMongodb size={50} />

@@ -1,7 +1,6 @@
 "use client";
 import { ReactLenis } from "lenis/react";
-import React, { useState, useEffect } from "react";
-import { useEventListener } from "usehooks-ts";
+import React, { useEffect } from "react";
 
 import PreLoader from "@/components/other/PreLoader";
 import useBlobity from "@/components/blobity/useBlobity";
@@ -18,19 +17,12 @@ import Footer from "@/app/sections/Footer";
 import Tools from "@/app/sections/Tools";
 
 export default function Home() {
-  const [isMobile, setIsMobile] = useState(false);
-
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
     });
-    setIsMobile(window.innerWidth < 768);
   }, []);
-
-  useEventListener("resize", () => {
-    setIsMobile(window.innerWidth < 768);
-  });
 
   useBlobity({
     licenseKey: "opensource",

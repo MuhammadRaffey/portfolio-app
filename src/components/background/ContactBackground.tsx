@@ -2,7 +2,7 @@ import React from "react";
 
 const ContactBackground: React.FC = () => {
   return (
-    <div className="absolute inset-0 -z-10">
+    <div className="absolute inset-0 -z-10 opacity-75">
       <video
         className="h-full w-full object-cover"
         autoPlay={true}

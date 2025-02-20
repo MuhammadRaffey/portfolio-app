@@ -25,6 +25,26 @@ export type Options = {
   tooltipPadding: number;
   kineticMorphing: boolean;
 };
+
+interface BlobityOptions {
+  color?: string;
+  opacity?: number;
+  licenseKey?: string;
+  size?: number;
+  radius?: number;
+  magnetic?: boolean;
+  dotColor?: string;
+  invert?: boolean;
+  focusableElements?: string;
+  font?: string;
+  fontSize?: number;
+  fontWeight?: number;
+  fontColor?: string;
+  zIndex?: number;
+  focusableElementsOffsetX?: number;
+  focusableElementsOffsetY?: number;
+}
+
 export default class Blobity {
   private readonly canvas: HTMLCanvasElement;
   private readonly ctx: CanvasRenderingContext2D;
@@ -180,10 +200,10 @@ export default class Blobity {
     this.stickedToElementMutationObserver = new MutationObserver(
       (mutations) => {
         for (const mutation of mutations) {
-          mutation.removedNodes.forEach((el: any) => {
+          mutation.removedNodes.forEach((el: Node) => {
             if (
               el === this.stickedToElement ||
-              el.contains(this.stickedToElement)
+              (el instanceof HTMLElement && el.contains(this.stickedToElement))
             ) {
               this.resetStickedToElement();
               this.resetStickedToElementMutationObserver();
@@ -777,4 +797,8 @@ export default class Blobity {
       this.currentMagnetic = null;
     }
   };
+}
+
+export function initBlobity(options: BlobityOptions): Blobity {
+  return new Blobity(options);
 }

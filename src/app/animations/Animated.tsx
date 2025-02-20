@@ -37,11 +37,17 @@ const Animated: React.FC<AnimatedProps> = ({
 
   useEffect(() => {
     if (inView) {
-      controls.start("visible");
-    } else {
-      controls.start("hidden");
+      controls.start((i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+          delay: (delay || 0) + i * stepSize,
+          duration: 0.5,
+          ease: "easeOut",
+        },
+      }));
     }
-  }, [controls, inView]);
+  }, [controls, inView, delay, stepSize]);
 
   const transition: Transition = {
     delay: delay || 0,

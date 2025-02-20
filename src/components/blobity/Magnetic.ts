@@ -43,7 +43,9 @@ export default class Magnetic {
       }px, 0) rotateY(${instances.x.current / 2}deg) rotateX(${
         instances.y.current / 2
       }deg)`;
-      this.onTick && this.onTick();
+      if (this.onTick) {
+        this.onTick();
+      }
     });
 
     this.kinetInstance.on("end", () => {
