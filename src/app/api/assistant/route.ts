@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 
 const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -13,13 +13,13 @@ const anthropic = new Anthropic({
   apiKey: apiKey,
 });
 
-export async function POST(request: NextRequest): Promise<NextResponse> {
+export async function POST(request: NextRequest) {
   try {
     const { message } = await request.json();
 
     if (!message) {
-      return NextResponse.json(
-        { message: "Message is required in the request body." },
+      return new Response(
+        JSON.stringify({ message: "Message is required in the request body." }),
         { status: 400 }
       );
     }
@@ -41,6 +41,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       model: "claude-3-5-sonnet-latest",
       max_tokens: 1024,
       system: systemPrompt,
+      stream: true,
       messages: [
         {
           role: "user",
@@ -49,31 +50,46 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       ],
     });
 
-    const content = response.content.find(
-      (block) => "type" in block && block.type === "text"
-    );
-    if (!content || !("text" in content)) {
-      throw new Error("Unexpected response format from Anthropic API");
-    }
+    // Create a new ReadableStream that will stream the response
+    const stream = new ReadableStream({
+      async start(controller) {
+        for await (const chunk of response) {
+          if (
+            chunk.type === "content_block_delta" &&
+            chunk.delta.type === "text_delta"
+          ) {
+            // Encode and send the text chunk
+            controller.enqueue(new TextEncoder().encode(chunk.delta.text));
+          }
+        }
+        controller.close();
+      },
+    });
 
-    return NextResponse.json({ message: content.text });
+    // Return the stream with the appropriate headers
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        "Transfer-Encoding": "chunked",
+      },
+    });
   } catch (error: unknown) {
     console.error("API Error:", error);
 
     if (error instanceof Anthropic.APIError) {
-      return NextResponse.json(
-        { message: "Anthropic API error: " + error.message },
+      return new Response(
+        JSON.stringify({ message: "Anthropic API error: " + error.message }),
         { status: error.status || 500 }
       );
     }
 
-    return NextResponse.json(
-      {
+    return new Response(
+      JSON.stringify({
         message:
           error instanceof Error
             ? error.message
             : "An unexpected error occurred while generating a response.",
-      },
+      }),
       { status: 500 }
     );
   }

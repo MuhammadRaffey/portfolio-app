@@ -8,6 +8,7 @@ interface Message {
   content: string;
   sender: "user" | "assistant";
   timestamp: string;
+  isStreaming?: boolean;
 }
 
 const ChatBot = () => {
@@ -49,7 +50,7 @@ const ChatBot = () => {
         currentChatContainer.removeEventListener("wheel", handleWheel);
       }
     };
-  }, [isOpen]); // Dependency array includes isOpen
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
@@ -60,7 +61,15 @@ const ChatBot = () => {
       sender: "user",
       timestamp: new Date().toISOString(),
     };
-    setMessages((prev) => [...prev, userMessage]);
+
+    const assistantMessage: Message = {
+      content: "",
+      sender: "assistant",
+      timestamp: new Date().toISOString(),
+      isStreaming: true,
+    };
+
+    setMessages((prev) => [...prev, userMessage, assistantMessage]);
     setInputValue("");
     setIsLoading(true);
 
@@ -73,22 +82,59 @@ const ChatBot = () => {
         body: JSON.stringify({ message: userMessage.content }),
       });
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
-      const assistantMessage: Message = {
-        content: data.message,
-        sender: "assistant",
-        timestamp: new Date().toISOString(),
-      };
-      setMessages((prev) => [...prev, assistantMessage]);
+      const reader = response.body?.getReader();
+      const decoder = new TextDecoder();
+
+      if (!reader) {
+        throw new Error("No reader available");
+      }
+
+      let accumulatedContent = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+
+        if (done) {
+          setMessages((prev) => {
+            const newMessages = [...prev];
+            const lastMessage = newMessages[newMessages.length - 1];
+            if (lastMessage.sender === "assistant") {
+              lastMessage.content = accumulatedContent;
+              lastMessage.isStreaming = false;
+            }
+            return newMessages;
+          });
+          break;
+        }
+
+        const chunk = decoder.decode(value);
+        accumulatedContent += chunk;
+
+        setMessages((prev) => {
+          const newMessages = [...prev];
+          const lastMessage = newMessages[newMessages.length - 1];
+          if (lastMessage.sender === "assistant") {
+            lastMessage.content = accumulatedContent;
+          }
+          return newMessages;
+        });
+      }
     } catch (error) {
       console.error("Error:", error);
-      const errorMessage: Message = {
-        content: "Sorry, I encountered an error. Please try again.",
-        sender: "assistant",
-        timestamp: new Date().toISOString(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) => {
+        const newMessages = [...prev];
+        const lastMessage = newMessages[newMessages.length - 1];
+        if (lastMessage.sender === "assistant") {
+          lastMessage.content =
+            "Sorry, I encountered an error. Please try again.";
+          lastMessage.isStreaming = false;
+        }
+        return newMessages;
+      });
     } finally {
       setIsLoading(false);
     }
@@ -122,10 +168,10 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-40">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-4 right-4 p-4 rounded-full bg-[#0E1016] text-[#e4ded7] shadow-lg hover:bg-[#212531] transition-all duration-300 ease-in-out transform hover:scale-110 ${
+        className={`fixed bottom-20 right-4 p-4 rounded-full bg-[#0E1016] text-[#e4ded7] shadow-lg hover:bg-[#212531] transition-all duration-300 ease-in-out transform hover:scale-110 ${
           isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
@@ -133,7 +179,7 @@ const ChatBot = () => {
       </button>
 
       <div
-        ref={chatContainerRef} // Attach the ref here
+        ref={chatContainerRef}
         className={`fixed bottom-16 right-4 w-[90%] max-w-[360px] bg-[#0A0C12] rounded-2xl shadow-2xl transition-all duration-300 ease-in-out transform ${
           isOpen
             ? "scale-100 opacity-100 translate-y-0"
@@ -158,7 +204,7 @@ const ChatBot = () => {
         </div>
 
         <div
-          ref={scrollableAreaRef} // Attach the ref to the scrollable area
+          ref={scrollableAreaRef}
           className="h-[60vh] max-h-[500px] min-h-[300px] overflow-y-auto p-6 space-y-6 bg-[#0A0C12] scrollbar-thin scrollbar-track-[#0A0C12] scrollbar-thumb-[#212531]"
         >
           {messages.map((message, index) => (
@@ -175,25 +221,26 @@ const ChatBot = () => {
                     : "bg-[#1a1f2e] text-[#e4ded7] rounded-bl-sm"
                 }`}
               >
-                <div className="break-all">{parseMessage(message.content)}</div>
+                <div className="break-all">
+                  {message.isStreaming && message.content === "" ? (
+                    <div className="flex space-x-2 items-center">
+                      <div className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse" />
+                      <div
+                        className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse"
+                        style={{ animationDelay: "0.2s" }}
+                      />
+                      <div
+                        className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse"
+                        style={{ animationDelay: "0.4s" }}
+                      />
+                    </div>
+                  ) : (
+                    parseMessage(message.content)
+                  )}
+                </div>
               </div>
             </div>
           ))}
-          {isLoading && (
-            <div className="flex justify-start">
-              <div className="flex space-x-2 bg-[#1a1f2e] text-[#e4ded7] p-4 rounded-2xl items-center shadow-md">
-                <div className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse" />
-                <div
-                  className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse"
-                  style={{ animationDelay: "0.2s" }}
-                />
-                <div
-                  className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse"
-                  style={{ animationDelay: "0.4s" }}
-                />
-              </div>
-            </div>
-          )}
           <div ref={messagesEndRef} />
         </div>
 
