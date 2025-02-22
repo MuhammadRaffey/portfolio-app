@@ -18,6 +18,63 @@ export type ProjectProps = {
 export const projects = [
   {
     id: 0,
+    name: "AI Interview Buddy",
+    description:
+      "An AI-powered platform for interview practice with real-time feedback. Features industry-specific simulations, speech recognition, and detailed performance analytics.",
+    technologies: [SiTypescript, SiReact, SiTailwindcss],
+    techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "OpenAI"],
+    techLinks: [
+      "https://www.typescriptlang.org/",
+      "https://reactjs.org/",
+      "https://nextjs.org/",
+      "https://tailwindcss.com/",
+      "https://openai.com/",
+    ],
+    github: "https://github.com/MuhammadRaffey/ai-interview-buddy",
+    demo: "https://raffeys-ai-interview-buddy.vercel.app/interview",
+    image: "/projects/interview.png",
+    available: true,
+  },
+  {
+    id: 1,
+    name: "AI Meeting Summarizer",
+    description:
+      "Real-time meeting transcription and summarization tool that converts speech to text and provides AI-powered meeting summaries. Features live transcription and instant summary generation.",
+    technologies: [SiTypescript, SiReact, SiTailwindcss],
+    techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "OpenAI"],
+    techLinks: [
+      "https://www.typescriptlang.org/",
+      "https://reactjs.org/",
+      "https://nextjs.org/",
+      "https://tailwindcss.com/",
+      "https://openai.com/",
+    ],
+    github: "https://github.com/MuhammadRaffey/ai-meeting-summarizer",
+    demo: "https://ai-meeting-summarizer.vercel.app/",
+    image: "/projects/summarizer.png",
+    available: true,
+  },
+  {
+    id: 2,
+    name: "Mood Shaiari",
+    description:
+      "An AI-powered Urdu poetry generator that creates verses based on emotions. Select your mood and get beautiful, contextually relevant Urdu poetry instantly.",
+    technologies: [SiTypescript, SiReact, SiTailwindcss],
+    techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "OpenAI"],
+    techLinks: [
+      "https://www.typescriptlang.org/",
+      "https://reactjs.org/",
+      "https://nextjs.org/",
+      "https://tailwindcss.com/",
+      "https://openai.com/",
+    ],
+    github: "https://github.com/MuhammadRaffey/Mood-Shaiari",
+    demo: "https://mood-shaiari.vercel.app/",
+    image: "/projects/shaiari.png",
+    available: true,
+  },
+  {
+    id: 3,
     name: "E-Commerce Store",
     description:
       "Developed an E-Commerce store with Next.js, Tailwind CSS, Framer Motion and TypeScript.",
@@ -42,7 +99,7 @@ export const projects = [
     available: true,
   },
   {
-    id: 1,
+    id: 4,
     name: "Blog App",
     description:
       "Developed a simple Blog App with Sanity.io, Next.js and Tailwind CSS.",

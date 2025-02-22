@@ -22,7 +22,7 @@ const ProjectCard = ({
 }: ProjectProps) => {
   return (
     <motion.div
-      className={`relative z-10 h-[550px] w-full items-stretch justify-center bg-cover bg-center bg-no-repeat py-0 sm:h-[700px] sm:w-[100%] md:h-[650px] md:w-[100%] lg:h-[500px]`}
+      className="relative z-10 h-[500px] w-full items-stretch justify-center bg-cover bg-center bg-no-repeat py-0 sm:h-[600px] md:h-[600px] lg:h-[500px]"
       initial="initial"
       animate="animate"
     >
@@ -42,7 +42,7 @@ const ProjectCard = ({
           alt={name}
           width={500}
           height={500}
-          className={`absolute -bottom-2 w-[70%] sm:w-[85%] md:w-[60%] lg:max-w-[55%] ${
+          className={`absolute -bottom-2 w-[65%] sm:w-[75%] md:w-[55%] lg:max-w-[50%] ${
             id % 2 === 0 ? "right-0" : "left-0"
           }`}
           priority={true}
@@ -50,7 +50,7 @@ const ProjectCard = ({
         <div
           className={`absolute top-0 text-[#0E1016] ${
             id % 2 === 0 ? "left-0 ml-8 lg:ml-14" : "right-0 mr-8 lg:mr-14"
-          } mt-6 flex  items-center justify-center gap-4 lg:mt-10`}
+          } mt-6 flex items-center justify-center gap-4 lg:mt-10`}
         >
           {available ? (
             <>
@@ -58,7 +58,7 @@ const ProjectCard = ({
                 href={github}
                 target="_blank"
                 aria-label="Open GitHub Repository"
-                className="w-[43px] rounded-full bg-white p-3 text-[20px] md:w-[65px] md:p-5 md:text-[24px] lg:w-[65px] lg:text-[28px]"
+                className="w-[45px] rounded-full bg-white p-3 text-[20px] md:w-[60px] md:p-4 md:text-[24px]"
                 data-blobity
                 data-blobity-radius="35"
                 data-blobity-offset-x="4"
@@ -71,7 +71,7 @@ const ProjectCard = ({
                 href={demo}
                 target="_blank"
                 aria-label="Open Live Demo"
-                className=" w-[43px] rounded-full bg-white p-3 text-[20px] md:w-[65px] md:p-5 md:text-[24px] lg:w-[65px] lg:text-[28px]"
+                className="w-[45px] rounded-full bg-white p-3 text-[20px] md:w-[60px] md:p-4 md:text-[24px]"
                 data-blobity
                 data-blobity-radius="35"
                 data-blobity-offset-x="4"
@@ -86,34 +86,30 @@ const ProjectCard = ({
           )}
         </div>
         <div
-          className={`absolute text-white  ${
+          className={`absolute text-white ${
             !(id % 2 === 0)
-              ? "right-0 top-32 mr-0 ml-10 md:right-0 md:ml-0 lg:right-0 lg:top-60  lg:mr-4"
-              : "left-10 top-32 ml-0 md:mr-12 lg:top-52 lg:ml-4"
-          } mb-10  md:mb-16 lg:mb-14 `}
+              ? "right-0 top-28 mr-0 ml-10 md:right-0 md:ml-0 lg:right-0 lg:top-40 lg:mr-4"
+              : "left-10 top-28 ml-0 md:mr-12 lg:top-40 lg:ml-4"
+          } mb-8 md:mb-12 lg:mb-10`}
         >
           <AnimatedTitle
             text={name}
-            className={
-              "max-w-[90%] text-[40px] leading-none text-white md:text-[44px] md:leading-none lg:max-w-[450px] lg:text-[48px] lg:leading-none"
-            }
-            wordSpace={"mr-[0.25em]"}
-            charSpace={"-mr-[0.01em]"}
+            className="max-w-[90%] text-[36px] leading-tight text-white md:text-[42px] lg:max-w-[450px] lg:text-[48px]"
+            wordSpace="mr-[0.25em]"
+            charSpace="-mr-[0.01em]"
           />
           <AnimatedBody
             text={description}
-            className={
-              "mt-4 w-[90%] max-w-[457px] text-[16px] font-semibold text-[#95979D] "
-            }
+            className="mt-4 w-[90%] max-w-[457px] text-[14px] font-medium text-[#95979D] md:text-[16px]"
           />
-          <div className="col-start-1 col-end-2 mt-9 mb-9 grid grid-cols-5 gap-5">
+          <div className="mt-6 mb-6 grid grid-cols-5 gap-4 md:mt-8 md:mb-8">
             {technologies.map((IconComponent, id) => (
-              <div key={id} className={"relative"}>
+              <div key={id} className="relative">
                 <Link
                   href={techLinks[id]}
                   target="_blank"
                   aria-label={`Learn more about ${techNames[id]}`}
-                  className="w-[20px] text-[20px] md:w-[25px] md:text-[24px] lg:w-[30px] lg:text-[28px]"
+                  className="w-[20px] text-[18px] md:w-[24px] md:text-[22px]"
                   title={techLinks[id]}
                   data-blobity-tooltip={techNames[id]}
                   data-blobity-magnetic="false"
