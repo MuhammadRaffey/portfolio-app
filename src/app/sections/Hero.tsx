@@ -20,7 +20,7 @@ const Hero = () => {
           <AnimatedTitle
             text={"Hi   I'm   Muhammad Raffey."}
             className={
-              "mb-1 text-left text-[40px] font-bold leading-[0.9em] tracking-tighter text-[#e4ded7] sm:text-[45px] md:mb-16 md:text-[60px] lg:text-[80px] ml-4"
+              "mb-1 text-left text-[40px] font-bold leading-[0.9em] tracking-tighter text-[#1a1a1a] dark:text-[#e4ded7] sm:text-[45px] md:mb-16 md:text-[60px] lg:text-[80px] ml-4"
             }
             wordSpace={"mr-[10px]"}
             charSpace={"mr-[0.001em]"}
