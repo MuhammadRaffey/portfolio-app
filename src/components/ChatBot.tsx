@@ -168,10 +168,10 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-40">
+    <div className="fixed bottom-4 right-4 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-20 right-4 p-4 rounded-full bg-[#0E1016] text-[#e4ded7] shadow-lg hover:bg-[#212531] transition-all duration-300 ease-in-out transform hover:scale-110 ${
+        className={`fixed bottom-20 sm:bottom-5 right-4 p-4 rounded-full bg-[#0E1016] text-[#e4ded7] shadow-lg hover:bg-[#212531] transition-all duration-300 ease-in-out transform hover:scale-110 ${
           isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
