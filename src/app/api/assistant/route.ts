@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       "He is currently working on exciting projects and is open to new opportunities and collaborations.";
 
     const response = await anthropic.messages.create({
-      model: "claude-3-5-sonnet-latest",
+      model: "claude-3-5-haiku-latest",
       max_tokens: 1024,
       system: systemPrompt,
       stream: true,
