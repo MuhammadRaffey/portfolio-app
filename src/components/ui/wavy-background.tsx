@@ -112,12 +112,34 @@ export const WavyBackground = ({
   };
 
   useEffect(() => {
-    const cleanup = init();
-    return () => {
-      cleanup?.();
-      cancelAnimationFrame(animationId);
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    w = ctx.canvas.width = window.innerWidth;
+    h = ctx.canvas.height = window.innerHeight;
+    ctx.filter = `blur(${blur}px)`;
+    nt = 0;
+
+    const handleResize = () => {
+      if (!ctx) return;
+      w = ctx.canvas.width = window.innerWidth;
+      h = ctx.canvas.height = window.innerHeight;
+      ctx.filter = `blur(${blur}px)`;
     };
-  }, []);
+
+    window.addEventListener("resize", handleResize);
+    render();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [blur, init, animationId]);
 
   const [isSafari, setIsSafari] = useState(false);
 
