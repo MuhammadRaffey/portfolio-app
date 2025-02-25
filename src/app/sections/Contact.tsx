@@ -12,7 +12,7 @@ import { SparklesCore } from "@/components/ui/sparkles";
 const Contact = () => {
   return (
     <motion.section
-      className="relative z-20 flex h-[100vh] w-full flex-col items-center justify-center overflow-hidden"
+      className="relative z-20 flex min-h-[100dvh] w-full flex-col items-center justify-start overflow-x-hidden"
       id="contact"
       initial="initial"
       animate="animate"
@@ -29,19 +29,19 @@ const Contact = () => {
       </div>
 
       {/* Contact Content */}
-      <div className="mx-auto flex w-[90%] flex-col items-center justify-center relative z-10 flex-grow">
+      <div className="mx-auto flex w-[90%] flex-col items-center justify-start flex-1 relative z-10 pt-14">
         <div
           className={`flex flex-col items-start justify-center ${inter.className} relative w-full sm:items-center lg:max-w-[1440px]`}
         >
           <AnimatedWords
             title={"contact"}
             style={
-              "flex max-w-[250px] flex-col items-start text-left text-[70px] font-extrabold uppercase leading-[2em] text-[#e4ded7] drop-shadow-lg sm:max-w-full sm:flex-row sm:items-center sm:justify-center sm:text-center sm:text-[150px] md:text-[150px] lg:text-center lg:text-[120px] xl:text-[250px]"
+              "flex max-w-[250px] flex-col items-start text-left text-[70px] font-extrabold uppercase leading-[1.2em] text-[#e4ded7] drop-shadow-lg sm:max-w-full sm:flex-row sm:items-center sm:justify-center sm:text-center sm:text-[150px] md:text-[150px] lg:text-center lg:text-[120px] xl:text-[250px]"
             }
           />
         </div>
 
-        <div className="mt-20 flex w-full flex-col items-end justify-center gap-16 sm:mt-32 sm:gap-12 md:mt-40 md:flex-row md:items-start md:justify-between lg:mt-12 lg:max-w-[1440px]">
+        <div className="mt-20 flex w-full flex-col items-end justify-center gap-16 sm:mt-32 sm:gap-12 md:mt-32 md:flex-row md:items-start md:justify-between lg:mt-12 lg:max-w-[1440px]">
           <div className="flex w-[350px] max-w-[90%] flex-col items-end text-right text-[14px] font-semibold uppercase text-[#e4ded7] drop-shadow-lg sm:w-[350px] sm:text-[14px] md:w-[310px] md:items-start md:text-left md:text-[16px] lg:w-[420px] lg:text-[16px]">
             <AnimatedBody
               text={
@@ -95,7 +95,7 @@ const Contact = () => {
       </div>
 
       {/* Footer Content */}
-      <div className="w-full py-6 relative z-10">
+      <div className="w-full py-6 relative z-10 mt-auto">
         <motion.div className="mx-auto flex w-[90%] flex-row items-center justify-between text-center text-[12px] text-[#e4ded7] sm:text-[12px] md:text-[14px] lg:max-w-[1440px] lg:text-[14px]">
           <AnimatedBody text={"© Muhammad Raffey 2024"} className={"m-0 p-0"} />
           <div className="flex flex-col sm:flex-row sm:gap-1 md:gap-2">
