@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.3",
+    "@tsparticles/engine": "^3.8.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.8.1",
     "autoprefixer": "^10.4.20",
     "blobity": "^0.2.3",
     "class-variance-authority": "^0.7.1",

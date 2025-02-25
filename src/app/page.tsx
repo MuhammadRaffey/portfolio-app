@@ -13,7 +13,6 @@ import Hero from "@/app/sections/Hero";
 import About from "@/app/sections/About";
 import Work from "@/app/sections/Work";
 import Contact from "@/app/sections/Contact";
-import Footer from "@/app/sections/Footer";
 import Tools from "@/app/sections/Tools";
 
 export default function Home() {
@@ -57,7 +56,6 @@ export default function Home() {
           <Work />
           <Tools />
           <Contact />
-          <Footer />
         </main>
       </ReactLenis>
     </>
