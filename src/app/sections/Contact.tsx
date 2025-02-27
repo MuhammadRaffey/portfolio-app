@@ -12,106 +12,101 @@ import { SparklesCore } from "@/components/ui/sparkles";
 const Contact = () => {
   return (
     <motion.section
-      className="relative z-20 flex min-h-[100dvh] w-full flex-col items-center justify-start overflow-x-hidden"
+      className="relative z-20 flex min-h-screen w-full flex-col items-center justify-between overflow-hidden py-8"
       id="contact"
       initial="initial"
       animate="animate"
     >
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <SparklesCore
           background="transparent"
           minSize={0.4}
-          maxSize={2}
-          particleDensity={200}
+          maxSize={1.2}
+          particleDensity={150}
           className="w-full h-full"
           particleColor="#e4ded7"
         />
       </div>
 
-      {/* Contact Content */}
-      <div className="mx-auto flex w-[90%] flex-col items-center justify-start flex-1 relative z-10 pt-14">
-        <div
-          className={`flex flex-col items-start justify-center ${inter.className} relative w-full sm:items-center lg:max-w-[1440px]`}
-        >
+      {/* Main Content */}
+      <div className="w-full px-4 md:px-8 lg:max-w-7xl mx-auto flex-1 flex flex-col justify-center relative z-10">
+        <div className={`${inter.className} w-full mb-8 md:mb-12 lg:mb-16`}>
           <AnimatedWords
             title={"contact"}
             style={
-              "flex max-w-[250px] flex-col items-start text-left text-[70px] font-extrabold uppercase leading-[1.2em] text-[#e4ded7] drop-shadow-lg sm:max-w-full sm:flex-row sm:items-center sm:justify-center sm:text-center sm:text-[150px] md:text-[150px] lg:text-center lg:text-[120px] xl:text-[250px]"
+              "text-6xl sm:text-8xl md:text-9xl font-extrabold uppercase text-[#e4ded7] text-center leading-[1.25] tracking-tighter"
             }
           />
         </div>
 
-        <div className="mt-20 flex w-full flex-col items-end justify-center gap-16 sm:mt-32 sm:gap-12 md:mt-32 md:flex-row md:items-start md:justify-between lg:mt-12 lg:max-w-[1440px]">
-          <div className="flex w-[350px] max-w-[90%] flex-col items-end text-right text-[14px] font-semibold uppercase text-[#e4ded7] drop-shadow-lg sm:w-[350px] sm:text-[14px] md:w-[310px] md:items-start md:text-left md:text-[16px] lg:w-[420px] lg:text-[16px]">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 w-full">
+          {/* Email Section */}
+          <div className="text-right md:text-left w-full md:w-1/2 space-y-4">
             <AnimatedBody
-              text={
-                "Got a question, proposal, project, or want to work together on something?"
-              }
-              className={
-                "-mb-1 inline-block overflow-hidden pt-1 sm:-mb-2 md:-mb-3 lg:-mb-4"
-              }
+              text="Got a question, proposal, project, or want to work together on something?"
+              className="text-lg md:text-xl font-medium text-[#e4ded7] leading-snug"
             />
             <Link
               href="mailto:muhammadraffey26@gmail.com"
               target="_blank"
               aria-label="Send me an email"
-              className="mt-1 w-[147px] flex-1 underline underline-offset-2 hover:no-underline sm:mt-2 sm:w-[147px] md:mt-3 md:w-[170px] lg:mt-4"
+              className="inline-block text-[#e4ded7] hover:opacity-80 transition-opacity underline underline-offset-4"
             >
-              <AnimatedBody text={"Send me an email"} className={""} />
+              <AnimatedBody
+                text="Send me an email"
+                className="text-lg md:text-xl"
+              />
             </Link>
           </div>
 
-          <div className="flex gap-10 text-[16px] font-bold text-[#e4ded7] sm:gap-14 sm:text-[24px] md:gap-10 md:text-[16px] lg:gap-20 lg:text-[28px]">
+          {/* Social Links */}
+          <div className="flex gap-6 md:gap-8 lg:gap-12 w-full md:w-auto justify-center md:justify-start mt-4">
             <Link
               href="https://github.com/MuhammadRaffey"
               target="_blank"
               aria-label="View GitHub Profile"
+              className="group"
             >
               <AnimatedTitle
-                text={"GITHUB"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
+                text="GITHUB"
+                className="text-xl md:text-2xl lg:text-3xl font-bold text-[#e4ded7] group-hover:opacity-80 transition-opacity"
+                wordSpace="mr-[0.1em]"
+                charSpace="mr-[0.02em]"
               />
             </Link>
             <Link
               href="https://www.linkedin.com/in/muhammadraffey/"
               target="_blank"
-              aria-label="View linkedin Profile"
+              aria-label="View LinkedIn Profile"
+              className="group"
             >
               <AnimatedTitle
-                text={"LINKEDIN"}
-                className={
-                  "text-[16px] font-bold text-[#e4ded7] sm:text-[20px] md:text-[16px] lg:text-[28px]"
-                }
-                wordSpace={"mr-[0.25em]"}
-                charSpace={"mr-[0.01em]"}
+                text="LINKEDIN"
+                className="text-xl md:text-2xl lg:text-3xl font-bold text-[#e4ded7] group-hover:opacity-80 transition-opacity"
+                wordSpace="mr-[0.1em]"
+                charSpace="mr-[0.02em]"
               />
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Footer Content */}
-      <div className="w-full py-6 relative z-10 mt-auto">
-        <motion.div className="mx-auto flex w-[90%] flex-row items-center justify-between text-center text-[12px] text-[#e4ded7] sm:text-[12px] md:text-[14px] lg:max-w-[1440px] lg:text-[14px]">
-          <AnimatedBody text={"© Muhammad Raffey 2024"} className={"m-0 p-0"} />
-          <div className="flex flex-col sm:flex-row sm:gap-1 md:gap-2">
-            <AnimatedBody text={"Design & Deployed by"} className={"m-0 p-0"} />
+      {/* Footer */}
+      <footer className="w-full px-4 md:px-8 lg:max-w-7xl mx-auto relative z-10 mt-8">
+        <motion.div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 border-t border-[#e4ded755] text-sm text-[#e4ded7]">
+          <AnimatedBody text="© Muhammad Raffey 2024" />
+          <div className="flex items-center gap-2 mt-3">
+            <AnimatedBody text="Design & Deployed by" className="mb-6" />
             <Link
               href="https://github.com/MuhammadRaffey"
               target="_blank"
-              aria-label="Muhammad Raffey's Github"
+              className="underline underline-offset-2 hover:no-underline mb-6"
             >
-              <span className="underline underline-offset-2 hover:no-underline">
-                <AnimatedBody text={"Muhammad Raffey"} className={"m-0 p-0"} />
-              </span>
+              <AnimatedBody text="Muhammad Raffey" />
             </Link>
           </div>
         </motion.div>
-      </div>
+      </footer>
     </motion.section>
   );
 };
