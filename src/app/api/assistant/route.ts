@@ -1,20 +1,20 @@
 import { NextRequest } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
+import OpenAI from "openai";
 
-const apiKey = process.env.ANTHROPIC_API_KEY;
-
-if (!apiKey) {
-  throw new Error(
-    "ANTHROPIC_API_KEY is not defined in the environment variables"
-  );
-}
-
-const anthropic = new Anthropic({
-  apiKey: apiKey,
-});
+const apiKey = process.env.GROQ_API_KEY;
 
 export async function POST(request: NextRequest) {
   try {
+    if (!apiKey) {
+      return new Response(
+        JSON.stringify({
+          message:
+            "AI assistant is not configured. Please contact the administrator.",
+        }),
+        { status: 503 }
+      );
+    }
+
     const { message } = await request.json();
 
     if (!message) {
@@ -23,6 +23,11 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    const openai = new OpenAI({
+      apiKey: apiKey,
+      baseURL: "https://api.groq.com/openai/v1",
+    });
 
     const systemPrompt =
       "You are an AI assistant designed specifically for Muhammad Raffey's portfolio website. " +
@@ -37,51 +42,44 @@ export async function POST(request: NextRequest) {
       "Keep responses professional and aligned with his portfolio's style. " +
       "He is currently working on exciting projects and is open to new opportunities and collaborations.";
 
-    const response = await anthropic.messages.create({
-      model: "claude-3-5-haiku-latest",
+    // Create a streaming chat completion
+    const response = await openai.chat.completions.create({
+      model: "meta-llama/llama-4-maverick-17b-128e-instruct",
       max_tokens: 1024,
-      system: systemPrompt,
       stream: true,
       messages: [
-        {
-          role: "user",
-          content: message,
-        },
+        { role: "system", content: systemPrompt },
+        { role: "user", content: message },
       ],
     });
 
-    // Create a new ReadableStream that will stream the response
+    // Stream the response to the client
     const stream = new ReadableStream({
       async start(controller) {
-        for await (const chunk of response) {
-          if (
-            chunk.type === "content_block_delta" &&
-            chunk.delta.type === "text_delta"
-          ) {
-            // Encode and send the text chunk
-            controller.enqueue(new TextEncoder().encode(chunk.delta.text));
+        try {
+          for await (const chunk of response) {
+            const content = chunk.choices?.[0]?.delta?.content;
+            if (content) {
+              controller.enqueue(new TextEncoder().encode(content));
+            }
           }
+          controller.close();
+        } catch (error) {
+          console.error("Streaming error:", error);
+          controller.error(error);
         }
-        controller.close();
       },
     });
 
-    // Return the stream with the appropriate headers
     return new Response(stream, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
-        "Transfer-Encoding": "chunked",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
       },
     });
   } catch (error: unknown) {
     console.error("API Error:", error);
-
-    if (error instanceof Anthropic.APIError) {
-      return new Response(
-        JSON.stringify({ message: "Anthropic API error: " + error.message }),
-        { status: error.status || 500 }
-      );
-    }
 
     return new Response(
       JSON.stringify({

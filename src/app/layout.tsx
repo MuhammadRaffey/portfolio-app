@@ -24,6 +24,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body
         className={`${inter.className} scroll-smooth scrollbar-thin scrollbar-track-[#0E1016] scrollbar-thumb-[#212531] full-screen`}
+        suppressHydrationWarning={true}
       >
         {children}
         <ChatBot />

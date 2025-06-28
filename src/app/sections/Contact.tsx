@@ -8,6 +8,7 @@ import AnimatedWords from "../animations/AnimatedWords";
 import { motion } from "framer-motion";
 import React from "react";
 import { SparklesCore } from "@/components/ui/sparkles";
+import Footer from "./Footer";
 
 const Contact = () => {
   return (
@@ -91,22 +92,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="w-full px-4 md:px-8 lg:max-w-7xl mx-auto relative z-10 mt-8">
-        <motion.div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 border-t border-[#e4ded755] text-sm text-[#e4ded7]">
-          <AnimatedBody text="© Muhammad Raffey 2024" />
-          <div className="flex items-center gap-2 mt-3">
-            <AnimatedBody text="Design & Deployed by" className="mb-6" />
-            <Link
-              href="https://github.com/MuhammadRaffey"
-              target="_blank"
-              className="underline underline-offset-2 hover:no-underline mb-6"
-            >
-              <AnimatedBody text="Muhammad Raffey" />
-            </Link>
-          </div>
-        </motion.div>
-      </footer>
+      <Footer />
     </motion.section>
   );
 };
