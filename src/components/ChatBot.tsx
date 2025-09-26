@@ -3,6 +3,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { X, Send } from "lucide-react";
 import { FaRobot } from "react-icons/fa";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import type { Components } from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeSanitize from "rehype-sanitize";
 
 interface Message {
   content: string;
@@ -23,6 +27,80 @@ const ChatBot = () => {
 
   const scrollToBottom = (): void => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const MarkdownMessage = ({ content }: { content: string }) => {
+    type MarkdownAnchorProps = React.ComponentPropsWithoutRef<"a"> & {
+      href?: string;
+      children?: React.ReactNode;
+    };
+    type MarkdownCodeProps = React.HTMLAttributes<HTMLElement> & {
+      inline?: boolean;
+      children?: React.ReactNode;
+    };
+
+    const markdownComponents: Components = {
+      a: (props: MarkdownAnchorProps) => {
+        const href = typeof props.href === "string" ? props.href : "#";
+        return (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:text-blue-300 underline underline-offset-4"
+          >
+            {props.children}
+          </a>
+        );
+      },
+      p: ({ children }) => <p className="mb-3 last:mb-0">{children}</p>,
+      ul: ({ children }) => (
+        <ul className="list-disc pl-5 space-y-1 mb-3 last:mb-0">{children}</ul>
+      ),
+      ol: ({ children }) => (
+        <ol className="list-decimal pl-5 space-y-1 mb-3 last:mb-0">
+          {children}
+        </ol>
+      ),
+      li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+      strong: ({ children }) => (
+        <strong className="font-semibold">{children}</strong>
+      ),
+      em: ({ children }) => <em className="italic">{children}</em>,
+      h1: ({ children }) => (
+        <h1 className="text-lg font-semibold mb-2">{children}</h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-base font-semibold mb-2">{children}</h2>
+      ),
+      h3: ({ children }) => (
+        <h3 className="text-base font-medium mb-2">{children}</h3>
+      ),
+      code: (props: MarkdownCodeProps) => {
+        const { inline } = props;
+        const text = Array.isArray(props.children)
+          ? props.children.join("")
+          : String(props.children ?? "");
+        return inline ? (
+          <code className="px-1.5 py-0.5 rounded bg-[#0E1016] text-[#e4ded7]">
+            {text}
+          </code>
+        ) : (
+          <pre className="mb-3 overflow-x-auto rounded-lg bg-[#0E1016] p-3">
+            <code>{text}</code>
+          </pre>
+        );
+      },
+    };
+    return (
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeSanitize]}
+        components={markdownComponents}
+      >
+        {content}
+      </ReactMarkdown>
+    );
   };
 
   useEffect(() => {
@@ -373,6 +451,8 @@ const ChatBot = () => {
                           style={{ animationDelay: "0.4s" }}
                         />
                       </div>
+                    ) : message.sender === "assistant" ? (
+                      <MarkdownMessage content={message.content} />
                     ) : (
                       parseMessage(message.content)
                     )}

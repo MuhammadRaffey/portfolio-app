@@ -40,11 +40,12 @@ export async function POST(request: NextRequest) {
       "- GitHub: https://github.com/MuhammadRaffey " +
       "- LinkedIn: https://www.linkedin.com/in/muhammadraffey/ " +
       "Keep responses professional and aligned with his portfolio's style. " +
-      "He is currently working on exciting projects and is open to new opportunities and collaborations.";
+      "He is currently working on exciting projects and is open to new opportunities and collaborations. " +
+      "Use clear Markdown formatting for readability (lists, links, inline code, small headings).";
 
     // Create a streaming chat completion
     const response = await openai.chat.completions.create({
-      model: "meta-llama/llama-4-maverick-17b-128e-instruct",
+      model: "openai/gpt-oss-120b",
       max_tokens: 1024,
       stream: true,
       messages: [
