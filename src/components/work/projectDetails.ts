@@ -1,5 +1,11 @@
-import { SiTypescript, SiReact, SiTailwindcss } from "react-icons/si";
-import { SiFramer } from "react-icons/si";
+import {
+  SiTypescript,
+  SiReact,
+  SiTailwindcss,
+  SiOpenai,
+  SiFramer,
+  SiNextdotjs,
+} from "react-icons/si";
 import { IconType } from "react-icons";
 
 export type ProjectProps = {
@@ -21,7 +27,7 @@ export const projects = [
     name: "AI Interview Buddy",
     description:
       "An AI-powered platform for interview practice with real-time feedback. Features industry-specific simulations, speech recognition, and detailed performance analytics.",
-    technologies: [SiTypescript, SiReact, SiTailwindcss],
+    technologies: [SiTypescript, SiReact, SiNextdotjs, SiTailwindcss, SiOpenai],
     techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "OpenAI"],
     techLinks: [
       "https://www.typescriptlang.org/",
@@ -40,7 +46,7 @@ export const projects = [
     name: "AI Meeting Summarizer",
     description:
       "Real-time meeting transcription and summarization tool that converts speech to text and provides AI-powered meeting summaries. Features live transcription and instant summary generation.",
-    technologies: [SiTypescript, SiReact, SiTailwindcss],
+    technologies: [SiTypescript, SiReact, SiNextdotjs, SiTailwindcss, SiOpenai],
     techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "OpenAI"],
     techLinks: [
       "https://www.typescriptlang.org/",
@@ -59,7 +65,7 @@ export const projects = [
     name: "Mood Shaiari",
     description:
       "An AI-powered Urdu poetry generator that creates verses based on emotions. Select your mood and get beautiful, contextually relevant Urdu poetry instantly.",
-    technologies: [SiTypescript, SiReact, SiTailwindcss],
+    technologies: [SiTypescript, SiReact, SiNextdotjs, SiTailwindcss, SiOpenai],
     techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "OpenAI"],
     techLinks: [
       "https://www.typescriptlang.org/",
@@ -78,7 +84,7 @@ export const projects = [
     name: "E-Commerce Store",
     description:
       "Developed an E-Commerce store with Next.js, Tailwind CSS, Framer Motion and TypeScript.",
-    technologies: [SiTypescript, SiReact, SiTailwindcss, SiFramer],
+    technologies: [SiTypescript, SiReact, SiNextdotjs, SiTailwindcss, SiFramer],
     techNames: [
       "TypeScript",
       "React",
@@ -100,11 +106,29 @@ export const projects = [
   },
   {
     id: 4,
+    name: "IELTS with Asif",
+    description:
+      "Business showcase website for a British Council certified IELTS trainer. Features service packages, pricing information, student success rates, and contact details to help potential clients learn about available coaching options and get in touch.",
+    technologies: [SiTypescript, SiReact, SiNextdotjs, SiTailwindcss],
+    techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS"],
+    techLinks: [
+      "https://www.typescriptlang.org/",
+      "https://reactjs.org/",
+      "https://nextjs.org/",
+      "https://tailwindcss.com/",
+    ],
+    github: "https://github.com/MuhammadRaffey/ielts-with-asif",
+    demo: "https://www.ieltswithasif.com/",
+    image: "/projects/ielts.png",
+    available: true,
+  },
+  {
+    id: 5,
     name: "Blog App",
     description:
       "Developed a simple Blog App with Sanity.io, Next.js and Tailwind CSS.",
-    technologies: [SiTypescript, SiReact, SiTailwindcss],
-    techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS", "Sanity.io"],
+    technologies: [SiTypescript, SiReact, SiNextdotjs, SiTailwindcss],
+    techNames: ["TypeScript", "React", "Next.js", "Tailwind CSS"],
     techLinks: [
       "https://www.typescriptlang.org/",
       "https://reactjs.org/",

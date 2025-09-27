@@ -21,6 +21,7 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isInitialized, setIsInitialized] = useState<boolean>(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null); // Ref for the main chat container
   const scrollableAreaRef = useRef<HTMLDivElement>(null); // Ref for the scrollable area
@@ -28,6 +29,71 @@ const ChatBot = () => {
   const scrollToBottom = (): void => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
+  // Check if localStorage is available
+  const isLocalStorageAvailable = (): boolean => {
+    try {
+      const test = "__localStorage_test__";
+      localStorage.setItem(test, test);
+      localStorage.removeItem(test);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  // Load state from localStorage on component mount
+  useEffect(() => {
+    if (isLocalStorageAvailable()) {
+      try {
+        const savedIsOpen = localStorage.getItem("chatbot-isOpen");
+        const savedMessages = localStorage.getItem("chatbot-messages");
+
+        if (savedIsOpen) {
+          setIsOpen(JSON.parse(savedIsOpen));
+        }
+
+        if (savedMessages) {
+          const parsedMessages = JSON.parse(savedMessages);
+          // Filter out any streaming messages that might have been saved
+          const cleanMessages = parsedMessages.filter(
+            (msg: Message) => !msg.isStreaming
+          );
+          setMessages(cleanMessages);
+        }
+      } catch (error) {
+        console.error("Error loading chat state from localStorage:", error);
+      }
+    }
+    setIsInitialized(true);
+  }, []);
+
+  // Save isOpen state to localStorage when it changes
+  useEffect(() => {
+    if (isInitialized && isLocalStorageAvailable()) {
+      try {
+        localStorage.setItem("chatbot-isOpen", JSON.stringify(isOpen));
+      } catch (error) {
+        console.error("Error saving chat open state to localStorage:", error);
+      }
+    }
+  }, [isOpen, isInitialized]);
+
+  // Save messages to localStorage when they change
+  useEffect(() => {
+    if (isInitialized && messages.length > 0 && isLocalStorageAvailable()) {
+      try {
+        // Filter out streaming messages before saving
+        const messagesForStorage = messages.filter((msg) => !msg.isStreaming);
+        localStorage.setItem(
+          "chatbot-messages",
+          JSON.stringify(messagesForStorage)
+        );
+      } catch (error) {
+        console.error("Error saving chat messages to localStorage:", error);
+      }
+    }
+  }, [messages, isInitialized]);
 
   const MarkdownMessage = ({ content }: { content: string }) => {
     type MarkdownAnchorProps = React.ComponentPropsWithoutRef<"a"> & {
@@ -47,7 +113,7 @@ const ChatBot = () => {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-400 hover:text-blue-300 underline underline-offset-4"
+            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 underline underline-offset-4 transition-colors duration-200"
           >
             {props.children}
           </a>
@@ -82,11 +148,11 @@ const ChatBot = () => {
           ? props.children.join("")
           : String(props.children ?? "");
         return inline ? (
-          <code className="px-1.5 py-0.5 rounded bg-[#0E1016] text-[#e4ded7]">
+          <code className="px-1.5 py-0.5 rounded bg-gray-200 dark:bg-slate-800 text-gray-900 dark:text-gray-100 transition-colors duration-200">
             {text}
           </code>
         ) : (
-          <pre className="mb-3 overflow-x-auto rounded-lg bg-[#0E1016] p-3">
+          <pre className="mb-3 overflow-x-auto rounded-lg bg-gray-100 dark:bg-slate-800 p-3 text-gray-900 dark:text-gray-100 transition-colors duration-200">
             <code>{text}</code>
           </pre>
         );
@@ -104,8 +170,22 @@ const ChatBot = () => {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+    if (isInitialized) {
+      scrollToBottom();
+    }
+  }, [messages, isInitialized]);
+
+  // Function to clear chat history
+  const clearChatHistory = (): void => {
+    setMessages([]);
+    if (isLocalStorageAvailable()) {
+      try {
+        localStorage.removeItem("chatbot-messages");
+      } catch (error) {
+        console.error("Error clearing chat history from localStorage:", error);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
@@ -242,7 +322,7 @@ const ChatBot = () => {
                 <Link
                   href={cleanedLink}
                   target="_blank"
-                  className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center gap-2 group"
+                  className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-200 flex items-center gap-2 group"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -274,7 +354,7 @@ const ChatBot = () => {
               <div key={`${pIndex}-${index}`} className="py-1">
                 <Link
                   href={`mailto:${part}`}
-                  className="text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center gap-2 group"
+                  className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-colors duration-200 flex items-center gap-2 group"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -340,7 +420,7 @@ const ChatBot = () => {
     <div className="fixed bottom-4 right-4 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-20 sm:bottom-5 right-4 p-4 rounded-full bg-[#0E1016] text-[#e4ded7] shadow-lg hover:bg-[#212531] transition-all duration-300 ease-in-out transform hover:scale-110 ${
+        className={`fixed bottom-20 lg:bottom-5 right-4 p-4 rounded-full bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700 transition-all duration-300 ease-in-out transform hover:scale-110 ${
           isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
@@ -356,27 +436,53 @@ const ChatBot = () => {
         } ${
           isFullScreen
             ? "top-0 left-0 w-full h-full m-0 rounded-none"
-            : "bottom-16 right-4 w-[90%] max-w-[400px] h-[470px] rounded-2xl"
-        } bg-[#0A0C12] shadow-2xl`}
+            : "bottom-16 right-2 sm:right-4 w-[95%] sm:w-[90%] max-w-[400px] h-[470px] rounded-2xl"
+        } bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 shadow-2xl`}
       >
         <div
           className={`flex flex-col w-full h-full ${
             isFullScreen ? "max-w-3xl mx-auto" : ""
           }`}
         >
-          <div className="flex items-center justify-between px-4 py-2 border-b border-[#212531] bg-[#0A0C12] rounded-t-2xl shrink-0">
+          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 rounded-t-2xl shrink-0 transition-colors duration-300">
             <div className="flex items-center space-x-3">
-              <div className="p-1.5 bg-[#212531] rounded-lg">
-                <FaRobot className="text-[#e4ded7]" size={16} />
+              <div className="p-1.5 bg-gray-200 dark:bg-slate-700 rounded-lg transition-colors duration-300">
+                <FaRobot
+                  className="text-gray-700 dark:text-gray-300 transition-colors duration-300"
+                  size={16}
+                />
               </div>
-              <h3 className="font-semibold text-base text-[#e4ded7]">
+              <h3 className="font-semibold text-base text-gray-900 dark:text-gray-100 transition-colors duration-300">
                 AI Assistant
               </h3>
             </div>
             <div className="flex items-center space-x-1">
+              {messages.length > 0 && (
+                <button
+                  onClick={clearChatHistory}
+                  className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
+                  title="Clear chat history"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M3 6h18" />
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                  </svg>
+                </button>
+              )}
               <button
                 onClick={() => setIsFullScreen(!isFullScreen)}
-                className="p-1.5 rounded-lg hover:bg-[#212531] text-[#e4ded7] hover:text-white transition-colors duration-200"
+                className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
               >
                 {isFullScreen ? (
                   <svg
@@ -413,7 +519,7 @@ const ChatBot = () => {
                   setIsOpen(false);
                   setIsFullScreen(false);
                 }}
-                className="p-1.5 rounded-lg hover:bg-[#212531] text-[#e4ded7] hover:text-white transition-colors duration-200"
+                className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
               >
                 <X size={16} />
               </button>
@@ -422,7 +528,7 @@ const ChatBot = () => {
 
           <div
             ref={scrollableAreaRef}
-            className="overflow-y-auto p-4 space-y-4 bg-[#0A0C12] scrollbar-thin scrollbar-track-[#0A0C12] scrollbar-thumb-[#212531] flex-1"
+            className="overflow-y-auto p-4 space-y-4 bg-white dark:bg-slate-900 flex-1 transition-colors duration-300"
           >
             {messages.map((message, index) => (
               <div
@@ -432,22 +538,22 @@ const ChatBot = () => {
                 }`}
               >
                 <div
-                  className={`max-w-[80%] w-fit p-4 rounded-2xl shadow-md transition-all duration-200 ${
+                  className={`max-w-[85%] sm:max-w-[80%] w-fit p-3 sm:p-4 rounded-2xl shadow-md transition-all duration-200 ${
                     message.sender === "user"
-                      ? "bg-[#212531] text-[#e4ded7] rounded-br-sm"
-                      : "bg-[#1a1f2e] text-[#e4ded7] rounded-bl-sm"
+                      ? "bg-blue-500 text-white rounded-br-sm"
+                      : "bg-gray-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100 rounded-bl-sm"
                   }`}
                 >
                   <div className="whitespace-normal break-words">
                     {message.isStreaming && message.content === "" ? (
                       <div className="flex space-x-2 items-center">
-                        <div className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse" />
+                        <div className="w-2 h-2 bg-gray-600 dark:bg-gray-300 rounded-full animate-pulse transition-colors duration-300" />
                         <div
-                          className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse"
+                          className="w-2 h-2 bg-gray-600 dark:bg-gray-300 rounded-full animate-pulse transition-colors duration-300"
                           style={{ animationDelay: "0.2s" }}
                         />
                         <div
-                          className="w-2 h-2 bg-[#e4ded7] rounded-full animate-pulse"
+                          className="w-2 h-2 bg-gray-600 dark:bg-gray-300 rounded-full animate-pulse transition-colors duration-300"
                           style={{ animationDelay: "0.4s" }}
                         />
                       </div>
@@ -465,7 +571,7 @@ const ChatBot = () => {
 
           <form
             onSubmit={handleSubmit}
-            className="border-t border-[#212531] p-3 bg-[#0A0C12] rounded-b-2xl mt-auto shrink-0"
+            className="border-t border-gray-200 dark:border-slate-700 p-3 bg-gray-50 dark:bg-slate-800 rounded-b-2xl mt-auto shrink-0 transition-colors duration-300"
           >
             <div className="flex gap-2">
               <input
@@ -473,13 +579,13 @@ const ChatBot = () => {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Type your message..."
-                className="flex-1 px-3 py-2 rounded-xl bg-[#212531] text-[#e4ded7] placeholder-[#9ca3af] text-sm focus:outline-none focus:ring-2 focus:ring-[#e4ded7]"
+                className="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 dark:border-slate-600 transition-colors duration-300"
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={isLoading || !inputValue.trim()}
-                className="p-2 bg-[#212531] text-[#e4ded7] rounded-xl hover:bg-[#2a2f3d] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105"
+                className="p-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105"
               >
                 <Send size={16} />
               </button>

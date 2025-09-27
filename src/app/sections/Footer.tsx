@@ -1,36 +1,30 @@
 import Link from "next/link";
-import { motion } from "framer-motion";
-import AnimatedBody from "../animations/AnimatedBody";
 import React from "react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <motion.section
-      className=" h-[15vh] w-full  items-center justify-center  pt-10  font-bold uppercase md:h-[20vh] md:py-16 lg:h-[10vh] lg:pt-6 lg:pb-0"
-      initial="initial"
-      animate="animate"
-    >
-      <motion.div className="mx-auto flex w-[90%] flex-row items-center justify-between text-center text-[12px] text-[#e4ded7] sm:text-[12px] md:text-[14px] lg:max-w-[1440px] lg:text-[14px]">
-        <AnimatedBody
-          text={`© Muhammad Raffey ${currentYear}`}
-          className={"m-0 p-0"}
-        />
-        <div className="flex flex-col sm:flex-row  sm:gap-1 md:gap-2">
-          <AnimatedBody text={"Design & Deployed by"} className={"m-0 p-0"} />
-          <Link
-            href="https://github.com/MuhammadRaffey"
-            target="_blank"
-            aria-label="Muhammad Raffey's Github"
-          >
-            <span className="underline underline-offset-2 hover:no-underline">
-              <AnimatedBody text={"Muhammad Raffey"} className={"m-0 p-0"} />
-            </span>{" "}
-          </Link>
+    <footer className="py-8 border-t border-gray-200 dark:border-slate-700 transition-colors duration-300">
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600 dark:text-gray-400 transition-colors duration-300">
+          <p className="mb-4 sm:mb-0">
+            © {currentYear} Muhammad Raffey. All rights reserved.
+          </p>
+          <div className="flex items-center gap-2">
+            <span>Designed & Built by</span>
+            <Link
+              href="https://github.com/MuhammadRaffey"
+              target="_blank"
+              aria-label="Muhammad Raffey's GitHub"
+              className="text-blue-400 hover:text-blue-600 dark:hover:text-white transition-colors duration-300 underline underline-offset-2 hover:no-underline"
+            >
+              Muhammad Raffey
+            </Link>
+          </div>
         </div>
-      </motion.div>
-    </motion.section>
+      </div>
+    </footer>
   );
 };
 

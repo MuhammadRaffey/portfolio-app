@@ -3,15 +3,21 @@ import React from "react";
 
 const Work = () => {
   return (
-    <section
-      className="relative z-10 flex w-full flex-col items-center justify-center bg-[#0E1016] bg-cover bg-center py-16 md:py-20 lg:py-20"
-      id="work"
-    >
-      <h2 className="mb-10 hidden text-[36px] text-[#e4ded7] md:mb-16 md:text-[42px] lg:mb-16 lg:text-[72px]">
-        Featured Work
-      </h2>
+    <section className="relative py-16 md:py-20 px-4 md:px-6" id="work">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-300">
+            Featured Projects
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400 mx-auto mb-6"></div>
+          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-300">
+            Showcasing intelligent AI systems, autonomous agents, and modern web
+            applications that demonstrate expertise across both domains
+          </p>
+        </div>
 
-      <ProjectGrid />
+        <ProjectGrid />
+      </div>
     </section>
   );
 };

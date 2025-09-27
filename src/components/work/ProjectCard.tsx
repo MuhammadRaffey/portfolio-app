@@ -1,13 +1,10 @@
 import { ProjectProps } from "./projectDetails";
 import Link from "next/link";
 import Image from "next/image";
-import AnimatedTitle from "../../app/animations/AnimatedTitle";
-import AnimatedBody from "../../app/animations/AnimatedBody";
-import { motion } from "framer-motion";
-import Container from "../container/Container";
 import React from "react";
 import { SiGithub } from "react-icons/si";
 import { BsLink45Deg } from "react-icons/bs";
+
 const ProjectCard = ({
   id,
   name,
@@ -21,107 +18,84 @@ const ProjectCard = ({
   available,
 }: ProjectProps) => {
   return (
-    <motion.div
-      className="relative z-10 h-[500px] w-full items-stretch justify-center bg-cover bg-center bg-no-repeat py-0 sm:h-[600px] md:h-[600px] lg:h-[500px]"
-      initial="initial"
-      animate="animate"
-    >
-      <Container
-        width="100%"
-        height="100%"
-        borderRadius={25}
-        color="rgba(255, 255, 255, 0.1)"
-        blur={false}
-        grain={true}
-        top="0px"
-        left="0px"
-        angle={0}
-      >
-        <Image
-          src={image}
-          alt={name}
-          width={500}
-          height={500}
-          className={`absolute -bottom-2 w-[65%] sm:w-[75%] md:w-[55%] lg:max-w-[50%] ${
-            id % 2 === 0 ? "right-0" : "left-0"
-          }`}
-          priority={true}
-        />
-        <div
-          className={`absolute top-0 text-[#0E1016] ${
-            id % 2 === 0 ? "left-0 ml-8 lg:ml-14" : "right-0 mr-8 lg:mr-14"
-          } mt-6 flex items-center justify-center gap-4 lg:mt-10`}
-        >
-          {available ? (
-            <>
+    <div className="relative w-full bg-white/70 dark:bg-slate-800/50 backdrop-blur-sm rounded-xl border border-gray-200 dark:border-slate-700 overflow-hidden hover:border-gray-300 dark:hover:border-slate-600 transition-all duration-300 group">
+      <div className="grid md:grid-cols-2 gap-6 md:gap-8 p-4 sm:p-6 md:p-8 w-full">
+        {/* Content Side */}
+        <div className={`space-y-6 ${id % 2 === 0 ? "order-1" : "order-2"}`}>
+          <div className="space-y-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white group-hover:text-blue-400 transition-colors duration-300">
+              {name}
+            </h3>
+            <p className="text-gray-700 dark:text-gray-300 leading-relaxed transition-colors duration-300">
+              {description}
+            </p>
+          </div>
+
+          {/* Technologies */}
+          <div className="space-y-3">
+            <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">
+              Technologies Used
+            </h4>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              {technologies.map((IconComponent, index) => (
+                <div key={index} className="group/tech">
+                  <Link
+                    href={techLinks[index]}
+                    target="_blank"
+                    aria-label={`Learn more about ${techNames[index]}`}
+                    className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 bg-gray-100 dark:bg-slate-900/50 rounded-lg border border-gray-300 dark:border-slate-700 hover:border-blue-500 transition-all duration-300"
+                    title={techNames[index]}
+                  >
+                    <IconComponent className="text-base sm:text-lg flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 group-hover/tech:text-gray-900 dark:group-hover/tech:text-white transition-colors duration-300 whitespace-nowrap">
+                      {techNames[index]}
+                    </span>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          {available && (
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <Link
                 href={github}
                 target="_blank"
-                aria-label="Open GitHub Repository"
-                className="w-[45px] rounded-full bg-white p-3 text-[20px] md:w-[60px] md:p-4 md:text-[24px]"
-                data-blobity
-                data-blobity-radius="35"
-                data-blobity-offset-x="4"
-                data-blobity-offset-y="4"
-                data-blobity-magnetic="false"
+                aria-label="View GitHub Repository"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 dark:bg-slate-900 border border-gray-300 dark:border-slate-700 rounded-lg hover:border-gray-600 dark:hover:border-white transition-all duration-300 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white text-sm sm:text-base"
               >
-                <SiGithub />
+                <SiGithub className="text-base sm:text-lg" />
+                <span>Code</span>
               </Link>
               <Link
                 href={demo}
                 target="_blank"
-                aria-label="Open Live Demo"
-                className="w-[45px] rounded-full bg-white p-3 text-[20px] md:w-[60px] md:p-4 md:text-[24px]"
-                data-blobity
-                data-blobity-radius="35"
-                data-blobity-offset-x="4"
-                data-blobity-offset-y="4"
-                data-blobity-magnetic="false"
+                aria-label="View Live Demo"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 text-white text-sm sm:text-base"
               >
-                <BsLink45Deg />
+                <BsLink45Deg className="text-base sm:text-lg" />
+                <span>Demo</span>
               </Link>
-            </>
-          ) : (
-            <div></div>
+            </div>
           )}
         </div>
-        <div
-          className={`absolute text-white ${
-            !(id % 2 === 0)
-              ? "right-0 top-28 mr-0 ml-10 md:right-0 md:ml-0 lg:right-0 lg:top-40 lg:mr-4"
-              : "left-10 top-28 ml-0 md:mr-12 lg:top-40 lg:ml-4"
-          } mb-8 md:mb-12 lg:mb-10`}
-        >
-          <AnimatedTitle
-            text={name}
-            className="max-w-[90%] text-[36px] leading-tight text-white md:text-[42px] lg:max-w-[450px] lg:text-[48px]"
-            wordSpace="mr-[0.25em]"
-            charSpace="-mr-[0.01em]"
-          />
-          <AnimatedBody
-            text={description}
-            className="mt-4 w-[90%] max-w-[457px] text-[14px] font-medium text-[#95979D] md:text-[16px]"
-          />
-          <div className="mt-6 mb-6 grid grid-cols-5 gap-4 md:mt-8 md:mb-8">
-            {technologies.map((IconComponent, id) => (
-              <div key={id} className="relative">
-                <Link
-                  href={techLinks[id]}
-                  target="_blank"
-                  aria-label={`Learn more about ${techNames[id]}`}
-                  className="w-[20px] text-[18px] md:w-[24px] md:text-[22px]"
-                  title={techLinks[id]}
-                  data-blobity-tooltip={techNames[id]}
-                  data-blobity-magnetic="false"
-                >
-                  <IconComponent />
-                </Link>
-              </div>
-            ))}
+
+        {/* Image Side */}
+        <div className={`relative ${id % 2 === 0 ? "order-2" : "order-1"}`}>
+          <div className="relative h-64 md:h-80 rounded-lg overflow-hidden">
+            <Image
+              src={image}
+              alt={name}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
           </div>
         </div>
-      </Container>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
