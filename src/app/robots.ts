@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: "/private/",
     },
     sitemap: "https://www.muhammadraffey.xyz/sitemap.xml",
-    host: "https://www.muhammadraffey.xyz",
+    host: "www.muhammadraffey.xyz",
   };
 }
