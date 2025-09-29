@@ -1,40 +1,23 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl =
+  // Normalize base URL and enforce canonical trailing slash on root
+  const rawBaseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.muhammadraffey.xyz";
-  const now = new Date();
+  const normalizedBaseUrl = rawBaseUrl.replace(/\/+$/, "");
+  const canonicalRootUrl = `${normalizedBaseUrl}/`;
 
+  // W3C Datetime (YYYY-MM-DD) per protocol guidance
+  const lastModifiedDate = new Date().toISOString().slice(0, 10);
+
+  // Important: Sitemaps must not include fragment identifiers (#...).
+  // Only include canonical crawlable URLs from a single host.
   return [
     {
-      url: baseUrl,
-      lastModified: now,
+      url: canonicalRootUrl,
+      lastModified: lastModifiedDate,
       changeFrequency: "weekly",
       priority: 1.0,
-    },
-    {
-      url: `${baseUrl}#about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}#work`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}#contact`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}#ai-stack`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
     },
   ];
 }
