@@ -27,7 +27,8 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Muhammad Raffey - Portfolio",
-    url: "https://raffeyportfolio.vercel.app",
+    url:
+      process.env.NEXT_PUBLIC_SITE_URL || "https://raffey-portfolio.vercel.app",
     description:
       "Portfolio website of Muhammad Raffey, an Agentic AI Engineer and Full-Stack Developer",
     author: {
