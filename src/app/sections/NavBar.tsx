@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
@@ -147,9 +148,14 @@ const NavBar = () => {
           <div className="flex items-center justify-between px-4 py-3">
             {/* Logo/Brand */}
             <div className="flex items-center">
-              <span className="text-xl font-bold text-gray-900 dark:text-white">
-                MR
-              </span>
+              <Image
+                src="/pic.png"
+                alt="MR Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+                priority
+              />
             </div>
 
             {/* Mobile Menu Controls */}
