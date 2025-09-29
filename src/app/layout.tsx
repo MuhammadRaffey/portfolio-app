@@ -14,7 +14,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://raffey-portfolio.vercel.app"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz"
   ),
   title: "Muhammad Raffey | Agentic AI Engineer & Full-Stack Developer",
   description:
@@ -58,8 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url:
-      process.env.NEXT_PUBLIC_SITE_URL || "https://raffey-portfolio.vercel.app",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz",
     title: "Muhammad Raffey | Agentic AI Engineer & Full-Stack Developer",
     description:
       "Agentic AI Engineer and Full-Stack Developer specializing in intelligent autonomous systems, multi-agent frameworks, and modern web applications. Expert in LangChain, OpenAI, React, Next.js, and AI-powered solutions.",
@@ -85,7 +84,7 @@ export const metadata: Metadata = {
     google: "google711920762e979762",
   },
   alternates: {
-    canonical: "https://raffey-portfolio.vercel.app",
+    canonical: "https://www.muhammadraffey.xyz",
   },
   category: "Technology",
 };
@@ -101,8 +100,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Muhammad Raffey",
-    url:
-      process.env.NEXT_PUBLIC_SITE_URL || "https://raffey-portfolio.vercel.app",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz",
     jobTitle: "Agentic AI Engineer & Full-Stack Developer",
     description:
       "Agentic AI Engineer and Full-Stack Developer specializing in intelligent autonomous systems, multi-agent frameworks, and modern web applications.",
@@ -141,8 +139,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id":
-        process.env.NEXT_PUBLIC_SITE_URL ||
-        "https://raffey-portfolio.vercel.app",
+        process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz",
     },
     sameAs: [
       "https://github.com/MuhammadRaffey",
