@@ -7,8 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const normalizedBaseUrl = rawBaseUrl.replace(/\/+$/, "");
   const canonicalRootUrl = `${normalizedBaseUrl}/`;
 
-  // W3C Datetime (YYYY-MM-DD) per protocol guidance
-  const lastModifiedDate = new Date().toISOString().slice(0, 10);
+  // W3C Datetime via Date object; Next will serialize to ISO 8601
+  const lastModifiedDate = new Date();
 
   // Important: Sitemaps must not include fragment identifiers (#...).
   // Only include canonical crawlable URLs from a single host.
@@ -17,7 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: canonicalRootUrl,
       lastModified: lastModifiedDate,
       changeFrequency: "weekly",
-      priority: 1.0,
+      priority: 1,
     },
   ];
 }
