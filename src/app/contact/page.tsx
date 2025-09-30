@@ -347,7 +347,7 @@ const ContactPage = () => {
                       />
                     </svg>
                     <p className="text-green-700 dark:text-green-300 font-medium">
-                      Message sent successfully! I'll get back to you soon.
+                      Message sent successfully! I&apos;ll get back to you soon.
                     </p>
                   </div>
                 </div>
