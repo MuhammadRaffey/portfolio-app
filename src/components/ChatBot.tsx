@@ -417,10 +417,10 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="fixed bottom-4 right-4 z-[9999]">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-20 lg:bottom-5 right-4 p-4 rounded-full bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700 transition-all duration-300 ease-in-out transform hover:scale-110 ${
+        className={`chatbot-button fixed bottom-20 lg:bottom-5 right-4 p-4 rounded-full bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700 transition-all duration-300 ease-in-out transform hover:scale-110 ${
           isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
       >
@@ -429,14 +429,14 @@ const ChatBot = () => {
 
       <div
         ref={chatContainerRef}
-        className={`fixed transition-all duration-300 ease-in-out transform flex flex-col ${
+        className={`chatbot-container fixed transition-all duration-300 ease-in-out transform flex flex-col ${
           isOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 translate-y-4 pointer-events-none"
         } ${
           isFullScreen
             ? "top-0 left-0 w-full h-full m-0 rounded-none"
-            : "bottom-16 right-2 sm:right-4 w-[95%] sm:w-[90%] max-w-[400px] h-[470px] rounded-2xl"
+            : "bottom-16 right-2 sm:right-4 w-[95%] sm:w-[85%] md:w-[350px] lg:w-[380px] xl:w-[400px] h-[450px] md:h-[480px] rounded-2xl"
         } bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 shadow-2xl`}
       >
         <div

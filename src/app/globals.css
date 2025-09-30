@@ -112,13 +112,17 @@ section {
 
 /* Prevent transform-based overflows */
 .relative,
-.absolute,
-.fixed {
+.absolute {
   contain: layout style;
 }
 
-/* Aggressive motion element containment */
-[style*="transform"] {
+/* Exclude chatbot from containment to preserve fixed positioning */
+.fixed:not([class*="bottom-"]):not([class*="right-"]) {
+  contain: layout style;
+}
+
+/* Aggressive motion element containment - exclude chatbot */
+[style*="transform"]:not(.chatbot-container):not(.chatbot-button) {
   overflow: hidden !important;
   max-width: 100% !important;
 }
@@ -127,6 +131,15 @@ section {
 .group {
   overflow: hidden !important;
   contain: layout style paint;
+}
+
+/* Ensure chatbot components maintain proper positioning */
+.chatbot-button,
+.chatbot-container {
+  contain: none !important;
+  overflow: visible !important;
+  max-width: none !important;
+  z-index: 9999 !important;
 }
 
 /* Ensure all text respects container bounds */
