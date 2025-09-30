@@ -23,7 +23,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        // Apply security headers to all routes except sitemap and robots
+        source: "/:path((?!sitemap-0\\.xml|robots\\.txt).*)*",
         headers: [
           {
             key: "X-Frame-Options",
@@ -36,6 +37,34 @@ const nextConfig: NextConfig = {
           {
             key: "Referrer-Policy",
             value: "origin-when-cross-origin",
+          },
+        ],
+      },
+      {
+        // Specific headers for sitemap to ensure proper XML delivery
+        source: "/sitemap-0.xml",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/xml; charset=utf-8",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, must-revalidate",
+          },
+        ],
+      },
+      {
+        // Specific headers for robots.txt
+        source: "/robots.txt",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "text/plain; charset=utf-8",
+          },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600, must-revalidate",
           },
         ],
       },

@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/private/"],
       },
     ],
-    sitemap: "https://www.muhammadraffey.xyz/sitemap.xml",
+    sitemap: "https://www.muhammadraffey.xyz/sitemap-0.xml",
   };
 }
