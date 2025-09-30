@@ -4,8 +4,8 @@ import React from "react";
 
 const ProjectGrid = () => {
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="space-y-6 sm:space-y-8">
+    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="space-y-6 sm:space-y-8 overflow-hidden">
         {projects.map((project: ProjectProps) => (
           <ProjectCard
             id={project.id}

@@ -73,9 +73,15 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd) }}
       />
-      <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 transition-colors duration-300">
+      <div
+        className="min-h-screen w-full max-w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 transition-colors duration-300"
+        style={{ overflowX: "hidden", maxWidth: "100vw" }}
+      >
         <NavBar />
-        <main className="relative w-full">
+        <main
+          className="relative w-full overflow-hidden"
+          style={{ overflowX: "hidden" }}
+        >
           <Hero />
           <About />
           <AIStack />

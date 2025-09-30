@@ -1,13 +1,30 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import ChatBot from "@/components/ChatBot";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 
+// Modern, beautiful font combination
+const outfit = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-outfit",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-mono",
+});
+
+// Fallback Inter for compatibility
 const inter = Inter({
   subsets: ["latin"],
-  display: "block", // kept as-is
+  display: "swap",
   weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -42,7 +59,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
         />
       </head>
       <body
-        className={`${inter.className} scroll-smooth full-screen transition-colors duration-300`}
+        className={`${outfit.variable} ${jetbrainsMono.variable} ${inter.variable} font-sans scroll-smooth full-screen transition-colors duration-300`}
+        style={{ overflowX: "hidden", maxWidth: "100vw" }}
         suppressHydrationWarning
       >
         <ThemeProvider>
