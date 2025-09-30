@@ -1,6 +1,9 @@
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz";
+
   return {
     rules: [
       {
@@ -9,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/private/"],
       },
     ],
-    sitemap: "https://www.muhammadraffey.xyz/sitemap-0.xml",
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
