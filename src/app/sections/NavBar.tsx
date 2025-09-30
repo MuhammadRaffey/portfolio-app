@@ -27,7 +27,7 @@ const NavBar = () => {
   };
 
   useEffect(() => {
-    const sections = ["home", "about", "aistack", "work", "contact"];
+    const sections = ["home", "about", "aistack", "work"];
 
     const handleScrollSpy = () => {
       const scrollPosition = window.scrollY + 100; // Reduced offset for better detection
@@ -105,11 +105,12 @@ const NavBar = () => {
   }, []);
 
   const navItems = [
-    { href: "home", label: "Home" },
-    { href: "about", label: "About" },
-    { href: "aistack", label: "AI Stack" },
-    { href: "work", label: "Work" },
-    { href: "contact", label: "Contact" },
+    { href: "home", label: "Home", isSection: true },
+    { href: "about", label: "About", isSection: true },
+    { href: "aistack", label: "Tech Stack", isSection: true },
+    { href: "work", label: "Work", isSection: true },
+    { href: "/certificates", label: "Certificates", isSection: false },
+    { href: "/contact", label: "Contact", isSection: false },
   ];
 
   return (
@@ -122,14 +123,22 @@ const NavBar = () => {
               {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
-                    href={`#${item.href}`}
-                    onClick={handleScroll}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      activeSection === item.href
+                    href={item.isSection ? `#${item.href}` : item.href}
+                    onClick={item.isSection ? handleScroll : undefined}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 whitespace-nowrap ${
+                      (item.isSection &&
+                        activeSection === item.href &&
+                        typeof window !== "undefined" &&
+                        window.location.pathname === "/") ||
+                      (!item.isSection &&
+                        typeof window !== "undefined" &&
+                        window.location.pathname === item.href)
                         ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md"
                         : "text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-slate-800"
                     }`}
-                    aria-label={`Navigate to ${item.label} section`}
+                    aria-label={`Navigate to ${item.label} ${
+                      item.isSection ? "section" : "page"
+                    }`}
                   >
                     {item.label}
                   </Link>
@@ -238,14 +247,22 @@ const NavBar = () => {
                 {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
-                      href={`#${item.href}`}
-                      onClick={handleScroll}
+                      href={item.isSection ? `#${item.href}` : item.href}
+                      onClick={item.isSection ? handleScroll : toggleMobileMenu}
                       className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
-                        activeSection === item.href
+                        (item.isSection &&
+                          activeSection === item.href &&
+                          typeof window !== "undefined" &&
+                          window.location.pathname === "/") ||
+                        (!item.isSection &&
+                          typeof window !== "undefined" &&
+                          window.location.pathname === item.href)
                           ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md"
                           : "text-gray-700 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-slate-800"
                       }`}
-                      aria-label={`Navigate to ${item.label} section`}
+                      aria-label={`Navigate to ${item.label} ${
+                        item.isSection ? "section" : "page"
+                      }`}
                     >
                       {item.label}
                     </Link>

@@ -4,7 +4,6 @@ import NavBar from "@/app/sections/NavBar";
 import Hero from "@/app/sections/Hero";
 import About from "@/app/sections/About";
 import Work from "@/app/sections/Work";
-import Contact from "@/app/sections/Contact";
 import AIStack from "@/app/sections/AIStack";
 
 import type { Metadata } from "next";
@@ -81,7 +80,6 @@ export default function Home() {
           <About />
           <AIStack />
           <Work />
-          <Contact />
         </main>
       </div>
     </>
