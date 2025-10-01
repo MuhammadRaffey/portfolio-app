@@ -43,9 +43,9 @@ const AnimatedElement = forwardRef<HTMLElement, AnimatedElementProps>(
         scale: 1,
         rotate: 0,
         transition: {
-          duration: duration || 0.8,
+          duration: duration || 0.4,
           delay,
-          ease: [0.6, -0.05, 0.01, 0.99],
+          ease: [0, 0, 0.2, 1],
         },
       },
     };

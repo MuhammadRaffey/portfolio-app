@@ -27,14 +27,14 @@ export const fadeIn: Variants = {
 export const fadeInUp: Variants = {
   hidden: {
     opacity: 0,
-    y: 60,
+    y: 30,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: easings.spring,
+      duration: 0.4,
+      ease: easings.easeOut,
     },
   },
 };
@@ -42,14 +42,14 @@ export const fadeInUp: Variants = {
 export const fadeInDown: Variants = {
   hidden: {
     opacity: 0,
-    y: -60,
+    y: -30,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: easings.spring,
+      duration: 0.4,
+      ease: easings.easeOut,
     },
   },
 };
@@ -57,14 +57,14 @@ export const fadeInDown: Variants = {
 export const fadeInLeft: Variants = {
   hidden: {
     opacity: 0,
-    x: -60,
+    x: -30,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.8,
-      ease: easings.spring,
+      duration: 0.4,
+      ease: easings.easeOut,
     },
   },
 };
@@ -72,14 +72,14 @@ export const fadeInLeft: Variants = {
 export const fadeInRight: Variants = {
   hidden: {
     opacity: 0,
-    x: 60,
+    x: 30,
   },
   visible: {
     opacity: 1,
     x: 0,
     transition: {
-      duration: 0.8,
-      ease: easings.spring,
+      duration: 0.4,
+      ease: easings.easeOut,
     },
   },
 };
@@ -88,14 +88,14 @@ export const fadeInRight: Variants = {
 export const scaleIn: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.8,
+    scale: 0.9,
   },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
-      duration: 0.6,
-      ease: easings.bounce,
+      duration: 0.3,
+      ease: easings.easeOut,
     },
   },
 };
@@ -138,8 +138,8 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
+      staggerChildren: 0.05,
+      delayChildren: 0.1,
     },
   },
 };
@@ -168,14 +168,14 @@ export const staggerSlow: Variants = {
 export const textReveal: Variants = {
   hidden: {
     opacity: 0,
-    y: 100,
+    y: 30,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.8,
-      ease: easings.spring,
+      duration: 0.4,
+      ease: easings.easeOut,
     },
   },
 };
@@ -183,13 +183,13 @@ export const textReveal: Variants = {
 export const letterReveal: Variants = {
   hidden: {
     opacity: 0,
-    y: 50,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.6,
+      duration: 0.3,
       ease: easings.easeOut,
     },
   },

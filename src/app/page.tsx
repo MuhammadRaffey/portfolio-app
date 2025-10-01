@@ -5,6 +5,7 @@ import Hero from "@/app/sections/Hero";
 import About from "@/app/sections/About";
 import Work from "@/app/sections/Work";
 import AIStack from "@/app/sections/AIStack";
+import ScrollRestoration from "@/components/ScrollRestoration";
 
 import type { Metadata } from "next";
 
@@ -77,6 +78,7 @@ export default function Home() {
         className="min-h-screen w-full max-w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 transition-colors duration-300"
         style={{ overflowX: "hidden", maxWidth: "100vw" }}
       >
+        <ScrollRestoration />
         <NavBar />
         <main
           className="relative w-full overflow-hidden"

@@ -31,7 +31,7 @@ const ProjectCard = ({
   return (
     <AnimatedElement
       variant={fadeInUp}
-      delay={id * 0.1}
+      delay={id * 0.03}
       className="w-full overflow-hidden"
     >
       <motion.div

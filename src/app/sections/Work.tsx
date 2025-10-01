@@ -45,7 +45,7 @@ const Work = () => {
           </AnimatedElement>
         </motion.div>
 
-        <AnimatedElement variant={fadeInUp} delay={0.7}>
+        <AnimatedElement variant={fadeInUp} delay={0.2}>
           <ProjectGrid />
         </AnimatedElement>
       </div>

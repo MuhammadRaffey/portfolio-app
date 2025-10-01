@@ -58,7 +58,7 @@ const ContactPage = () => {
     }
   };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 transition-colors duration-300">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 transition-colors duration-300">
       {/* Header */}
       <div className="pt-20 pb-16 px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -80,11 +80,11 @@ const ContactPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 md:px-6 pb-20">
-        <div className="grid lg:grid-cols-2 gap-12">
+      <div className="max-w-6xl w-full mx-auto px-4 md:px-6 pb-20">
+        <div className="grid lg:grid-cols-2 gap-12 w-full">
           {/* Contact Information */}
-          <div className="space-y-8">
-            <div className="bg-white/70 dark:bg-slate-800/50 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 shadow-lg">
+          <div className="space-y-8 w-full">
+            <div className="bg-white/70 dark:bg-slate-800/50 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 shadow-lg w-full overflow-hidden">
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">
                 Get In Touch
               </h2>
@@ -118,7 +118,7 @@ const ContactPage = () => {
                     </h3>
                     <Link
                       href="mailto:muhammadraffey26@gmail.com"
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 break-all"
                     >
                       muhammadraffey26@gmail.com
                     </Link>
@@ -143,7 +143,7 @@ const ContactPage = () => {
                       href="https://linkedin.com/in/muhammad-raffey"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 break-all"
                     >
                       linkedin.com/in/muhammad-raffey
                     </Link>
@@ -168,7 +168,7 @@ const ContactPage = () => {
                       href="https://github.com/MuhammadRaffey"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300"
+                      className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 break-all"
                     >
                       github.com/MuhammadRaffey
                     </Link>
@@ -178,7 +178,7 @@ const ContactPage = () => {
             </div>
 
             {/* CV Download Section */}
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 shadow-lg">
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 shadow-lg w-full overflow-hidden">
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
                 Download CV
               </h2>
@@ -210,7 +210,7 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white/70 dark:bg-slate-800/50 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 shadow-lg">
+          <div className="bg-white/70 dark:bg-slate-800/50 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 shadow-lg w-full overflow-hidden">
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">
               Send a Message
             </h2>
@@ -228,7 +228,7 @@ const ContactPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
+                  className="w-full max-w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Your full name"
                   required
                 />
@@ -247,7 +247,7 @@ const ContactPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
+                  className="w-full max-w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
                   placeholder="your.email@example.com"
                   required
                 />
@@ -266,7 +266,7 @@ const ContactPage = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
+                  className="w-full max-w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300"
                   placeholder="What's this about?"
                   required
                 />
@@ -285,7 +285,7 @@ const ContactPage = () => {
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300 resize-none"
+                  className="w-full max-w-full px-4 py-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors duration-300 resize-none"
                   placeholder="Tell me about your project or idea..."
                   required
                 ></textarea>

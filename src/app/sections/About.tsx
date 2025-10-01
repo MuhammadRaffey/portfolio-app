@@ -188,24 +188,24 @@ const About = () => {
         {/* Professional Approach */}
         <AnimatedElement
           variant={fadeInUp}
-          delay={0.6}
+          delay={0.2}
           className="mt-16 text-center"
         >
           <AnimatedElement
             variant={scaleIn}
-            delay={0.8}
+            delay={0.3}
             className="bg-gradient-to-r from-blue-100/50 to-purple-100/50 dark:from-blue-900/20 dark:to-purple-900/20 p-8 rounded-lg border border-gray-200 dark:border-slate-700 transition-all duration-300 hover:border-gradient-to-r hover:from-blue-300 hover:to-purple-300 dark:hover:from-blue-700 dark:hover:to-purple-700 backdrop-blur-sm"
           >
             <AnimatedText
               as="h4"
               className="text-2xl font-semibold text-gray-900 dark:text-white mb-4 transition-colors duration-300"
-              delay={1.0}
+              delay={0.4}
             >
               Professional Approach
             </AnimatedText>
             <AnimatedElement
               variant={fadeInUp}
-              delay={1.2}
+              delay={0.5}
               as="p"
               className="text-lg text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed transition-colors duration-300"
             >
