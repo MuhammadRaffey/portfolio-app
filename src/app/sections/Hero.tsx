@@ -82,7 +82,7 @@ const Hero = () => {
           </MagneticButton>
           <MagneticButton
             as="a"
-            href="#contact"
+            href="/contact"
             className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border-2 border-gray-600 text-gray-700 hover:border-gray-900 hover:text-gray-900 dark:border-gray-400 dark:text-gray-300 rounded-lg font-semibold dark:hover:border-white dark:hover:text-white transition-all duration-300 text-center"
             strength={0.2}
           >

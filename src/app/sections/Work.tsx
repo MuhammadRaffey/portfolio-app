@@ -45,9 +45,9 @@ const Work = () => {
           </AnimatedElement>
         </motion.div>
 
-        <AnimatedElement variant={fadeInUp} delay={0.2}>
+        <div className="mt-8">
           <ProjectGrid />
-        </AnimatedElement>
+        </div>
       </div>
     </section>
   );
