@@ -90,14 +90,15 @@ const ProjectCard = ({
 
           {/* Image Side */}
           <div className={`relative ${id % 2 === 0 ? "order-2" : "order-1"}`}>
-            <div className="relative h-64 sm:h-80 md:h-full md:min-h-[380px] rounded-xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900/80 dark:to-slate-800/80 shadow-inner group-hover:shadow-lg transition-all duration-500 border border-slate-200/50 dark:border-slate-700/30">
+            <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 shadow-lg group-hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-700">
               <Image
                 src={image}
                 alt={name}
                 fill
-                className="object-contain p-2 md:p-4"
+                className="object-contain"
                 sizes="(max-width: 768px) 100vw, 50vw"
-                priority={id === 0} // Load first project image with priority
+                quality={100}
+                priority={id === 0}
               />
             </div>
           </div>
