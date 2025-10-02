@@ -5,6 +5,7 @@ import Hero from "@/app/sections/Hero";
 import About from "@/app/sections/About";
 import Work from "@/app/sections/Work";
 import AIStack from "@/app/sections/AIStack";
+import Footer from "@/app/sections/Footer";
 import ScrollRestoration from "@/components/ScrollRestoration";
 
 import type { Metadata } from "next";
@@ -88,6 +89,7 @@ export default function Home() {
           <AIStack />
           <Work />
         </main>
+        <Footer />
       </div>
     </>
   );
