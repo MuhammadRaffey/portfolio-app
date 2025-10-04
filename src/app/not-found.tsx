@@ -7,29 +7,24 @@ import ThemeToggle from "@/components/ui/ThemeToggle";
 const NotFound = () => {
   return (
     <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-gray-900 dark:to-slate-800 transition-colors duration-300">
-      {/* Theme Toggle in top right */}
       <div className="fixed top-4 right-4 z-50">
         <ThemeToggle />
       </div>
 
       <div className="flex min-h-screen flex-col items-center justify-center px-4 md:px-6 py-12">
-        {/* Animated background elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 animate-pulse"></div>
           <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-75"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-150"></div>
         </div>
 
-        {/* Content */}
         <div className="relative z-10 text-center max-w-2xl mx-auto space-y-8">
-          {/* 404 Number */}
           <div className="mb-6">
             <h1 className="text-7xl sm:text-8xl md:text-9xl lg:text-[12rem] font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 leading-none">
               404
             </h1>
           </div>
 
-          {/* Error Message */}
           <div className="space-y-4 mb-6">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
               Page Not Found
@@ -40,7 +35,6 @@ const NotFound = () => {
             </p>
           </div>
 
-          {/* Animated Image */}
           <div className="mb-8 flex justify-center">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-2xl blur-lg"></div>
@@ -55,7 +49,6 @@ const NotFound = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
             <Link
               href="/"
@@ -71,7 +64,6 @@ const NotFound = () => {
             </Link>
           </div>
 
-          {/* Helpful Links */}
           <div className="pt-8 border-t border-gray-200 dark:border-slate-700">
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
               Quick Navigation:
