@@ -1,27 +1,28 @@
 import { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Use environment variable or fallback to the correct domain
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz";
+import { getSiteUrl } from "@/lib/site-url";
 
-  // Ensure URLs are properly formatted
+export const revalidate = 86400; // 24 hours
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = getSiteUrl();
+  const lastModified = new Date().toISOString();
   const urls = [
     {
       url: baseUrl,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "weekly" as const,
       priority: 1,
     },
     {
       url: `${baseUrl}/certificates`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
     },

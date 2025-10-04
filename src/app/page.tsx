@@ -7,6 +7,7 @@ import Work from "@/app/sections/Work";
 import AIStack from "@/app/sections/AIStack";
 import Footer from "@/app/sections/Footer";
 import ScrollRestoration from "@/components/ScrollRestoration";
+import { getSiteUrl } from "@/lib/site-url";
 
 import type { Metadata } from "next";
 
@@ -23,11 +24,12 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const siteUrl = getSiteUrl();
   const portfolioJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Muhammad Raffey - Portfolio",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz",
+    url: siteUrl,
     description:
       "Portfolio website of Muhammad Raffey, an Agentic AI Engineer and Full-Stack Developer",
     author: {
