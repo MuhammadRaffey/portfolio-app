@@ -11,6 +11,8 @@ import { getSiteUrl } from "@/lib/site-url";
 
 import type { Metadata } from "next";
 
+const canonicalUrl = getSiteUrl();
+
 export const metadata: Metadata = {
   title:
     "Muhammad Raffey | AI Engineer Portfolio - Agentic AI & Full-Stack Development",
@@ -20,6 +22,9 @@ export const metadata: Metadata = {
     title: "Muhammad Raffey | AI Engineer Portfolio",
     description:
       "Agentic AI Engineer portfolio featuring AI-powered applications, multi-agent systems, and modern web development projects.",
+  },
+  alternates: {
+    canonical: canonicalUrl,
   },
 };
 
