@@ -16,7 +16,7 @@ const FloatingElements = ({
   const getRandomDelay = () => Math.random() * 2;
   const getRandomSize = () => Math.random() * 60 + 40; // Reduced max size
   const getRandomPosition = () => ({
-    top: `${Math.random() * 80 + 10}%`, // Keep away from edges
+    top: `${Math.random() * 80 + 10}%`,
     left: `${Math.random() * 80 + 10}%`, // Keep away from edges
   });
 
