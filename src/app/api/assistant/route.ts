@@ -17,7 +17,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json().catch(() => ({}) as any);
+    type RequestBody = { message?: unknown };
+    const body: RequestBody = await request
+      .json()
+      .catch(() => ({}) as RequestBody);
     const rawMessage = typeof body?.message === "string" ? body.message : "";
     const message = rawMessage.trim();
 
@@ -92,7 +95,8 @@ If a request is out of scope or unknown, reply **exactly once** with:
 `.trim();
 
     // --- Responses API: STREAMING ---
-    const inputMessages: any[] = [
+    type ChatMessage = { role: "system" | "user"; content: string };
+    const inputMessages: ChatMessage[] = [
       { role: "system", content: SYSTEM_PROMPT },
       { role: "user", content: message },
     ];
@@ -128,8 +132,10 @@ If a request is out of scope or unknown, reply **exactly once** with:
       cancel() {
         // Abort upstream if client disconnects
         try {
-          // @ts-ignore - abort is available on stream controller
-          stream.abort?.();
+          const maybeAbortable = stream as unknown as { abort?: () => void };
+          if (typeof maybeAbortable.abort === "function") {
+            maybeAbortable.abort();
+          }
         } catch {}
       },
     });
