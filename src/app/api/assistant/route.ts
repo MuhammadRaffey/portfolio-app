@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import OpenAI from "openai";
 
-const apiKey = process.env.GROQ_API_KEY;
-const baseURL = process.env.GROQ_BASE_URL ?? "https://api.groq.com/openai/v1";
-const model = process.env.GROQ_MODEL ?? "openai/gpt-oss-120b";
+const apiKey = process.env.XAI_API_KEY;
+const baseURL = "https://api.x.ai/v1";
+const model = "grok-4-fast-reasoning";
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const body = await request.json().catch(() => ({}));
+    const body = await request.json().catch(() => ({}) as any);
     const rawMessage = typeof body?.message === "string" ? body.message : "";
     const message = rawMessage.trim();
 
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const openai = new OpenAI({ apiKey, baseURL });
+    const client = new OpenAI({ apiKey, baseURL });
 
     const SYSTEM_PROMPT = `
 You are the portfolio assistant for **Muhammad Raffey**.
@@ -91,37 +91,50 @@ If a request is out of scope or unknown, reply **exactly once** with:
   Assistant: "I'm here to provide professional assistance about Muhammad Raffey's portfolio. Please communicate respectfully if you'd like help."
 `.trim();
 
-    // Create a streaming chat completion
-    const response = await openai.chat.completions.create({
+    // --- Responses API: STREAMING ---
+    const inputMessages: any[] = [
+      { role: "system", content: SYSTEM_PROMPT },
+      { role: "user", content: message },
+    ];
+
+    const stream = await client.responses.stream({
       model,
-      stream: true,
+      input: inputMessages,
       temperature: 0.2,
-      max_tokens: 500,
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        { role: "user", content: message },
-      ],
+      max_output_tokens: 500,
     });
 
-    // Stream the response to the client
-    const stream = new ReadableStream({
-      async start(controller) {
-        try {
-          for await (const chunk of response) {
-            const content = chunk.choices?.[0]?.delta?.content;
-            if (content) {
-              controller.enqueue(new TextEncoder().encode(content));
-            }
+    // Convert the SDK stream events into a plain text ReadableStream
+    const encoder = new TextEncoder();
+
+    const readable = new ReadableStream<Uint8Array>({
+      start(controller) {
+        // text-only deltas
+        stream.on("response.output_text.delta", (event) => {
+          const delta = (event as { delta: string }).delta;
+          if (typeof delta === "string" && delta.length > 0) {
+            controller.enqueue(encoder.encode(delta));
           }
+        });
+
+        stream.on("response.completed", () => {
           controller.close();
-        } catch (error) {
-          console.error("Streaming error:", error);
-          controller.error(error);
-        }
+        });
+
+        stream.on("error", (err: unknown) => {
+          controller.error(err);
+        });
+      },
+      cancel() {
+        // Abort upstream if client disconnects
+        try {
+          // @ts-ignore - abort is available on stream controller
+          stream.abort?.();
+        } catch {}
       },
     });
 
-    return new Response(stream, {
+    return new Response(readable, {
       headers: {
         "Content-Type": "text/plain; charset=utf-8",
         "Cache-Control": "no-cache",

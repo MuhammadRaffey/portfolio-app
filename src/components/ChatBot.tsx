@@ -420,6 +420,17 @@ const ChatBot = () => {
     <div className="fixed bottom-4 right-4 z-[9999]">
       <button
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? "Hide AI assistant" : "Open AI assistant"}
+        aria-expanded={isOpen}
+        aria-haspopup="dialog"
+        aria-controls="chatbot-panel"
+        title={isOpen ? "Hide AI assistant" : "Open AI assistant"}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }
+        }}
         className={`chatbot-button fixed bottom-20 lg:bottom-5 right-4 p-4 rounded-full bg-white dark:bg-slate-900 text-gray-800 dark:text-gray-200 shadow-lg hover:bg-gray-50 dark:hover:bg-slate-800 border border-gray-200 dark:border-slate-700 transition-all duration-300 ease-in-out transform hover:scale-110 ${
           isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
         }`}
@@ -429,6 +440,7 @@ const ChatBot = () => {
 
       <div
         ref={chatContainerRef}
+        id="chatbot-panel"
         className={`chatbot-container fixed transition-all duration-300 ease-in-out transform flex flex-col ${
           isOpen
             ? "opacity-100 translate-y-0"
@@ -462,6 +474,7 @@ const ChatBot = () => {
                   onClick={clearChatHistory}
                   className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
                   title="Clear chat history"
+                  aria-label="Clear chat history"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -483,6 +496,10 @@ const ChatBot = () => {
               <button
                 onClick={() => setIsFullScreen(!isFullScreen)}
                 className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
+                aria-label={
+                  isFullScreen ? "Exit full screen" : "Enter full screen"
+                }
+                title={isFullScreen ? "Exit full screen" : "Enter full screen"}
               >
                 {isFullScreen ? (
                   <svg
@@ -520,6 +537,8 @@ const ChatBot = () => {
                   setIsFullScreen(false);
                 }}
                 className="p-1.5 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-600 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors duration-200"
+                aria-label="Close assistant"
+                title="Close assistant"
               >
                 <X size={16} />
               </button>
@@ -529,6 +548,9 @@ const ChatBot = () => {
           <div
             ref={scrollableAreaRef}
             className="overflow-y-auto p-4 space-y-4 bg-white dark:bg-slate-900 flex-1 transition-colors duration-300"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions text"
           >
             {messages.map((message, index) => (
               <div
@@ -581,11 +603,13 @@ const ChatBot = () => {
                 placeholder="Type your message..."
                 className="flex-1 px-3 py-2 rounded-xl bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200 dark:border-slate-600 transition-colors duration-300"
                 disabled={isLoading}
+                aria-label="Message input"
               />
               <button
                 type="submit"
                 disabled={isLoading || !inputValue.trim()}
                 className="p-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 hover:scale-105"
+                aria-label={isLoading ? "Sending message" : "Send message"}
               >
                 <Send size={16} />
               </button>

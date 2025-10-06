@@ -19,8 +19,6 @@ const ProjectCard = ({
   image,
   available,
 }: ProjectProps) => {
-  console.log("Rendering ProjectCard:", name);
-
   return (
     <div className="w-full">
       <div className="relative w-full bg-white/80 dark:bg-slate-800/70 backdrop-blur-md rounded-2xl border border-gray-200/50 dark:border-slate-700/50 group hover:scale-[1.005] hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 shadow-xl overflow-hidden">
@@ -93,11 +91,11 @@ const ProjectCard = ({
             <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 shadow-lg group-hover:shadow-2xl transition-all duration-500 border border-slate-200 dark:border-slate-700">
               <Image
                 src={image}
-                alt={name}
+                alt={`${name} project screenshot`}
                 fill
                 className="object-contain"
                 sizes="(max-width: 768px) 100vw, 50vw"
-                quality={100}
+                quality={85}
                 priority={id === 0}
               />
             </div>

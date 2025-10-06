@@ -214,7 +214,11 @@ const ContactPage = () => {
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">
               Send a Message
             </h2>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              aria-describedby="contact-form-status"
+            >
               <div>
                 <label
                   htmlFor="name"
@@ -299,6 +303,7 @@ const ContactPage = () => {
                     ? "bg-gray-400 dark:bg-gray-600 cursor-not-allowed"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 transform hover:scale-105"
                 }`}
+                aria-label={isSubmitting ? "Sending message" : "Send message"}
               >
                 {isSubmitting ? (
                   <span className="flex items-center justify-center">
@@ -331,7 +336,12 @@ const ContactPage = () => {
 
               {/* Status Messages */}
               {submitStatus === "success" && (
-                <div className="p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-lg">
+                <div
+                  id="contact-form-status"
+                  role="status"
+                  aria-live="polite"
+                  className="p-4 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-lg"
+                >
                   <div className="flex items-center">
                     <svg
                       className="w-5 h-5 text-green-600 dark:text-green-400 mr-2"
@@ -354,7 +364,12 @@ const ContactPage = () => {
               )}
 
               {submitStatus === "error" && (
-                <div className="p-4 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-lg">
+                <div
+                  id="contact-form-status"
+                  role="alert"
+                  aria-live="assertive"
+                  className="p-4 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-700 rounded-lg"
+                >
                   <div className="flex items-center">
                     <svg
                       className="w-5 h-5 text-red-600 dark:text-red-400 mr-2"
