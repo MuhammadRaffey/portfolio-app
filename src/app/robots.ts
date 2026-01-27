@@ -1,16 +1,17 @@
 import { MetadataRoute } from "next";
 
-import { getSiteUrl } from "@/lib/site-url";
+import { getCanonicalUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = getSiteUrl();
+  const baseUrl = getCanonicalUrl();
 
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/_next/", "/static/"],
+        // Do not block Next.js assets; Google needs them to render the page.
+        disallow: ["/api/"],
       },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,

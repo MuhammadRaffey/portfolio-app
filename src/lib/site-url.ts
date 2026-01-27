@@ -1,4 +1,4 @@
-const FALLBACK_URL = "https://muhammadraffey.xyz";
+const FALLBACK_URL = "https://www.muhammadraffey.xyz";
 
 /**
  * Normalises the public site URL so that generated metadata such as the

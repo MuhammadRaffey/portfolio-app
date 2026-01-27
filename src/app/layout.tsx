@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit, JetBrains_Mono } from "next/font/google";
 import ChatBot from "@/components/ChatBot";
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { getDefaultMetadata } from "@/lib/seo";
 
 // Modern, beautiful font combination
 const outfit = Outfit({
@@ -27,14 +28,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://www.muhammadraffey.xyz"
-  ),
-  title: "Muhammad Raffey | Agentic AI Engineer & Full-Stack Developer",
-  description:
-    "Agentic AI Engineer and Full-Stack Developer specializing in intelligent autonomous systems, multi-agent frameworks, and modern web applications. Expert in LangChain, OpenAI, React, Next.js, and AI-powered solutions.",
-};
+export const metadata: Metadata = getDefaultMetadata();
 
 type RootLayoutProps = { children: React.ReactNode };
 
